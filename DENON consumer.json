@@ -1,0 +1,40 @@
+{ "name":"DENON Consumer",
+   "manufacturer":"Tono",
+   "type":"MEDIAPLAYER",
+   "version":1,
+   "variables": {         
+      "StatMsg":""},
+   "discover":{
+     "welcomeheadertext":"Choose your DENON RADIO Instance",
+     "welcomedescription":"powered by meta\nby Ton-o",
+      "command": {"type":"dnssd", "command":"heos-audio",
+      "queryresult":["$.*"]}
+   }, 
+   "template" : {
+      "name": "DENON Consumer",
+      "type":"MEDIAPLAYER",
+      "manufacturer": "Tono",
+      "version": 1,
+      "variables":{
+         "MyHEOSIp":"DYNAMIK_INST_START DYNAMIK  JSON.parse(\"$Result\").addresses[0].host DYNAMIK_INST_END",
+         "MyHEOSPort":"DYNAMIK_INST_START DYNAMIK JSON.parse(\"$Result\").addresses[0].port DYNAMIK_INST_END",
+         "MyHEOSMAC": "DYNAMIK_INST_START DYNAMIK JSON.parse(\"$Result\").addresses[0].mac DYNAMIK_INST_END"
+      },
+      "deviceCapabilities":["alwayson"],
+
+      "dynamicname": "DYNAMIK_INST_START DYNAMIK  \"DENON Consumer\" + JSON.parse(\"$Result\").addresses[0].host  DYNAMIK_INST_END",
+      "dynamicid": "DYNAMIK_INST_START DYNAMIK \"DENON Consumer\" + JSON.parse(\"$Result\").addresses[0].mac DYNAMIK_INST_END",
+      "listeners" : {
+      },
+      "labels": {
+      },
+      "buttons":{
+         "POWER ON": 
+         {"type":"telnet", 
+         "command":"{\"call\":\"$MyHEOSIp\"}",
+         "queryresult":"$.Message",             
+         "evaldo":[{"test":true,"then":"__INITIALISE", "or":""}]
+         }
+      }
+   }
+}

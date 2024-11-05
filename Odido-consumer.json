@@ -1,0 +1,24 @@
+{"name":"Odido consumer",
+   "manufacturer":"Tono",
+   "type":"DVB",
+   "version":2,
+   "deviceCapabilities":["channelSave"],   
+   "alwayson":true,
+   "buttons":{
+      "POWER ON": 
+         {"label":"", "type":"static",
+         "command":"{}"
+      },
+      "CHANNEL UP": {"label":"", "type":"http-rest",
+         "command":"{\"verb\":\"post\",\"call\":\"http://$MyHASIp:$MyHASPort/api/services/remote/send_command\",\"message\":{\"entity_id\": \"remote.4k_tv_box\", \"command\":\"CHANNEL_UP\"},\"headers\":{$APIKey,\"Content-Type\": \"application/json\"}}",
+         "queryresult":"$",
+         "evalwrite":[{"variable":"MyResult","value":"DYNAMIK JSON.parse(\"$Result\")"}]
+      },
+      "CHANNEL DOWN": {"label":"", "type":"http-rest",
+         "command":"{\"verb\":\"post\",\"call\":\"http://$MyHASIp:$MyHASPort/api/services/remote/send_command\",\"message\":{\"entity_id\": \"remote.4k_tv_box\", \"command\":\"CHANNEL_DOWN\"},\"headers\":{$APIKey,\"Content-Type\": \"application/json\"}}",
+         "queryresult":"$",
+         "evalwrite":[{"variable":"MyResult","value":"DYNAMIK JSON.parse(\"$Result\")"}]
+      }
+   }
+}
+

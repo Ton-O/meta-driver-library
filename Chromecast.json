@@ -1,0 +1,70 @@
+{"name":"GoogleTV",
+    "manufacturer":"Tono",
+    "type":"DVB",
+    "version":2,
+    "variables": {"MYRESULT":""}, 
+    "discover":{
+      "welcomeheadertext":"Choose your Google Instance",
+      "welcomedescription":"powered by meta\nby Ton-o",
+       "command": {"type":"dnssd", "command":"googlecast", 
+          "queryresult":["$.*"]
+       }
+    },
+    "template" : 
+    {
+    "name":"GoogleTV",
+    "manufacturer":"Tono",
+    "type":"DVB",
+    "version":2,
+    "variables":{
+        "MyIP":"DYNAMIK_INST_START DYNAMIK JSON.parse(\"$Result\").addresses[0].host DYNAMIK_INST_END",
+        "MyPort":"DYNAMIK_INST_START DYNAMIK JSON.parse(\"$Result\").addresses[0].port DYNAMIK_INST_END",
+        "MyMAC": "DYNAMIK_INST_START DYNAMIK JSON.parse(\"$Result\").addresses[0].mac DYNAMIK_INST_END"
+    },
+    "dynamicname": "DYNAMIK_INST_START DYNAMIK \"Googlecast \"+JSON.parse(\"$Result\").fn DYNAMIK_INST_END",
+    "dynamicid":   "DYNAMIK_INST_START DYNAMIK \"Googlecost \"+JSON.parse(\"$Result\").id DYNAMIK_INST_END",
+    "webSocket":{},
+    "buttons":{
+        "INITHOST": {"label":"", "type":"http-get", "command":"http://127.0.0.1:6468\/init?host=$MyIP"},
+        "POWER TOGGLE": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendPower\"}}"},
+        "POWER ON": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendPower\"}}"},
+        "POWER OFF": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendPower\"}}"},
+        "VOLUME UP": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"KEYCODE_VOLUME_UP\"}}"},
+        "VOLUME DOWN": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"KEYCODE_VOLUME_DOWN\"}}"},
+        "CHANNEL UP": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"KEYCODE_CHANNEL_UP\"}}"},
+        "CHANNEL DOWN": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"KEYCODE_CHANNEL_DOWN\"}}"},
+        "CURSOR UP": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"KEYCODE_DPAD_UP\"}}"},
+        "CURSOR DOWN": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"KEYCODE_DPAD_DOWN\"}}"},
+        "CURSOR LEFT": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"KEYCODE_DPAD_LEFT\"}}"},
+        "CURSOR RIGHT": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"KEYCODE_DPAD_RIGHT\"}}"},
+        "CURSOR ENTER": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"KEYCODE_ENTER\"}}"},
+        "MUTE TOGGLE": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"KEYCODE_VOLUME_MUTE\"}}"},
+        "MENU": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"KEYCODE_MENU\"}}"},
+        "BACK": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"KEYCODE_BACK\"}}"},
+        "RETURN": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"KEYCODE_ESCAPE\"}}"},
+        "DIGIT 0": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"KEYCODE_0\"}}"},
+        "DIGIT 1": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"KEYCODE_1\"}}"},
+        "DIGIT 2": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"KEYCODE_2\"}}"},
+        "DIGIT 3": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"KEYCODE_3\"}}"},
+        "DIGIT 4": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"KEYCODE_4\"}}"},
+        "DIGIT 5": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"KEYCODE_5\"}}"},
+        "DIGIT 6": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"KEYCODE_6\"}}"},
+        "DIGIT 7": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"KEYCODE_7\"}}"},
+        "DIGIT 8": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"KEYCODE_8\"}}"},
+        "DIGIT 9": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"KEYCODE_9\"}}"},
+        "PLAY": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"KEYCODE_MEDIA_PLAY\"}}"},
+        "PAUSE": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"KEYCODE_MEDIA_PLAY_PAUSE\"}}"},
+        "STOP": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"KEYCODE_MEDIA_STOP\"}}"},
+        "REVERSE": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"KEYCODE_BACKWARD\"}}"},
+        "FORWARD": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"KEYCODE_FORWARD\"}}"},
+        "MY RECORDINGS": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"\"}}"},
+        "RECORD": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"KEYCODE_MEDIA_RECORD\"}}"},
+        "TV": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"TV\"}}"},
+        "GUIDE": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"KEYCODE_GUIDE\"}}"},
+        "INFO": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"KEYCODE_INFO\"}}"},
+        "TOPMENU": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendKey\",\"key\":\"KEYCODE_HOME\"}}"},
+        "Radio": {"label":"", "type":"http-rest", "command":"{\"verb\":\"post\",\"call\":\"http://127.0.0.1:6468/api\",\"message\":{\"host\":\"$MyIP\",\"action\":\"sendAction\",\"theAction\":\"Radio\"}}"}  
+        }
+    }    
+}
+  
