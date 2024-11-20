@@ -122,15 +122,15 @@
          },
          "__VOLUMETV": 
             {"type":"telnet", 
-            "command":"{\"call\":\"$MyHEOSIp:23\",\"message\":\"MV30\",\"CallType\":\"send\"}"
+            "command":"{\"call\":\"$MyHEOSIp:23\",\"message\":\"MV30\",\"CallType\":\"dsend\",\"delaytime\":2500}"
          },
          "__VOLUMEMPlayer": 
             {"type":"telnet", 
-            "command":"{\"call\":\"$MyHEOSIp:23\",\"message\":\"MV285\",\"CallType\":\"send\"}"
+            "command":"{\"call\":\"$MyHEOSIp:23\",\"message\":\"MV285\",\"CallType\":\"dsend\",\"delaytime\":2500}"
          },
          "__VOLUMERADIO": 
             {"type":"telnet", 
-            "command":"{\"call\":\"$MyHEOSIp:23\",\"message\":\"MV28\",\"CallType\":\"dexec\",\"delaytime\":2500}"
+            "command":"{\"call\":\"$MyHEOSIp:23\",\"message\":\"MV28\",\"CallType\":\"dsend\",\"delaytime\":2500}"
          },
          "__MUTE ON": 
             {"label": "", "type":"static", "command":".",
@@ -171,7 +171,7 @@
          },
          "Input GAME":
             {"type":"telnet",  
-            "command":"{\"call\":\"$MyHEOSIp\",\"message\":\"SIGAME\",\"CallType\":\"exec\",\"TelnetParms\":{\"ClearFirst\":true}}",
+            "command":"{\"call\":\"$MyHEOSIp\",\"message\":\"SIGAME\",\"CallType\":\"send\",\"TelnetParms\":{\"ClearFirst\":true}}",
             "queryresult":"$.Message",             
             "evalwrite" : [{"variable" : "SOURCE",     "value" : "GAME"}]
          },
@@ -191,55 +191,55 @@
          "Input CD":
             {"type":"telnet",  
             "queryresult":"$.Message",             
-            "command":"{\"call\":\"$MyHEOSIp\",\"message\":\"SICD\",\"CallType\":\"exec\",\"TelnetParms\":{\"ClearFirst\":true}}",
+            "command":"{\"call\":\"$MyHEOSIp\",\"message\":\"SICD\",\"CallType\":\"send\",\"TelnetParms\":{\"ClearFirst\":true}}",
             "evalwrite" : [{"variable" : "SOURCE",     "value" : "CD"}]
          },
          "Input BT":
             {"type":"telnet",  
             "queryresult":"$.Message",             
-            "command":"{\"call\":\"$MyHEOSIp\",\"message\":\"SICD\",\"CallType\":\"exec\",\"TelnetParms\":{\"ClearFirst\":true}}",
+            "command":"{\"call\":\"$MyHEOSIp\",\"message\":\"SICD\",\"CallType\":\"send\",\"TelnetParms\":{\"ClearFirst\":true}}",
             "evalwrite" : [{"variable" : "SOURCE",     "value" : "BLUETOOTH"}]
          },
          "Input DVD":
             {"type":"telnet",  
             "queryresult":"$.Message",             
-            "command":"{\"call\":\"$MyHEOSIp\",\"message\":\"SIDVD\",\"CallType\":\"exec\",\"TelnetParms\":{\"ClearFirst\":true}}",
+            "command":"{\"call\":\"$MyHEOSIp\",\"message\":\"SIDVD\",\"CallType\":\"send\",\"TelnetParms\":{\"ClearFirst\":true}}",
             "evalwrite" : [{"variable" : "SOURCE",     "value" : "DVD"}]
          },
          "Input FAVO":
             {"type":"telnet",  
             "queryresult":"$.Message",             
-            "command":"{\"call\":\"$MyHEOSIp\",\"message\":\"SIFAVORITES\",\"CallType\":\"exec\",\"TelnetParms\":{\"ClearFirst\":true}}",
+            "command":"{\"call\":\"$MyHEOSIp\",\"message\":\"SIFAVORITES\",\"CallType\":\"send\",\"TelnetParms\":{\"ClearFirst\":true}}",
             "evalwrite" : [{"variable" : "SOURCE",     "value" : "FAVO"}]
          },
          "Input AUX1":
             {"type":"telnet",  
             "queryresult":"$.Message",             
-            "command":"{\"call\":\"$MyHEOSIp\",\"message\":\"SIAUX1\",\"CallType\":\"exec\",\"TelnetParms\":{\"ClearFirst\":true}}",
+            "command":"{\"call\":\"$MyHEOSIp\",\"message\":\"SIAUX1\",\"CallType\":\"send\",\"TelnetParms\":{\"ClearFirst\":true}}",
             "evalwrite" : [{"variable" : "SOURCE",     "value" : "AUX1"}]
          },
          "Input AUX2":
             {"type":"telnet",  
             "queryresult":"$.Message",             
-            "command":"{\"call\":\"$MyHEOSIp\",\"message\":\"SIAUX2\",\"CallType\":\"exec\",\"TelnetParms\":{\"ClearFirst\":true}}",
+            "command":"{\"call\":\"$MyHEOSIp\",\"message\":\"SIAUX2\",\"CallType\":\"send\",\"TelnetParms\":{\"ClearFirst\":true}}",
             "evalwrite" : [{"variable" : "SOURCE",     "value" : "AUX2"}]
          },
          "Input AUX3":
             {"type":"telnet",  
             "queryresult":"$.Message",             
-            "command":"{\"call\":\"$MyHEOSIp\",\"message\":\"SIAUX3\",\"CallType\":\"exec\",\"TelnetParms\":{\"ClearFirst\":true}}",
+            "command":"{\"call\":\"$MyHEOSIp\",\"message\":\"SIAUX3\",\"CallType\":\"send\",\"TelnetParms\":{\"ClearFirst\":true}}",
             "evalwrite" : [{"variable" : "SOURCE",     "value" : "AUX3"}]
          },
          "Input AUX4":
             {"type":"telnet",  
             "queryresult":"$.Message",             
-            "command":"{\"call\":\"$MyHEOSIp\",\"message\":\"SIAUX4\",\"CallType\":\"exec\",\"TelnetParms\":{\"ClearFirst\":true}}",
+            "command":"{\"call\":\"$MyHEOSIp\",\"message\":\"SIAUX4\",\"CallType\":\"send\",\"TelnetParms\":{\"ClearFirst\":true}}",
             "evalwrite" : [{"variable" : "SOURCE",     "value" : "AUX4"}]
          },
          "Input AUX5":
             {"type":"telnet",  
             "queryresult":"$.Message",             
-            "command":"{\"call\":\"$MyHEOSIp\",\"message\":\"SIAUX5\",\"CallType\":\"exec\",\"TelnetParms\":{\"ClearFirst\":true}}",
+            "command":"{\"call\":\"$MyHEOSIp\",\"message\":\"SIAUX5\",\"CallType\":\"send\",\"TelnetParms\":{\"ClearFirst\":true}}",
             "evalwrite" : [{"variable" : "SOURCE",     "value" : "AUX5"}]
          }
 
