@@ -1,7 +1,7 @@
 {"name":"metaCore",
   "manufacturer":"Jac459, adapted by Ton-O",
   "type":"AVRECEIVER",
-  "version":3,
+  "version":5,
   "deviceCapabilities": [
     "alwaysOn"
   ],    
