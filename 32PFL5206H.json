@@ -11,7 +11,7 @@
        "welcomeheadertext":"Broadlink driver",
        "welcomedescription":"By Tono",
        "initcommandset":[
-          { "label":"","type":"cli","command":"python3 /opt/meta/.Python-stuff/python-broadlink/cli/broadlink_discovery","queryresult":["\/--type ([0-9a-z]+)* --host ([0-9a-z.]+)* --mac ([0-9a-z]+)\/g"],
+         { "label":"","type":"cli","command":"python3 /opt/meta/.Python-stuff/python-broadlink/cli/broadlink_discovery","queryresult":["\/--type ([0-9a-z]+)* --host ([0-9a-z.]+)* --mac ([0-9a-z]+) ([\\S]+)\/g"],
           "evalwrite":[{"variable":"Broadlinks","value":"$Result"}]
           }],
        "command":{"label":"","type":"static","command":"DYNAMIK $Broadlinks","queryresult":[""],
