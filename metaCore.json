@@ -30,7 +30,7 @@
      "DriverOrigin":"",
      "LOGLEVEL":"",
      "MODULE":"",
-     "Origin":""
+     "ORIGIN":""
   },
  
   "buttons":{          
@@ -106,7 +106,7 @@
                "itemlabel":"DYNAMIK JSON.parse(\"$Result\").TextLevel",
                "evalnext":[{"test":true, "then":"LOGLEVEL", "or":""}],
                "evalwrite":[{"variable":"MODULE","value":"DYNAMIK JSON.parse(\"$Result\").Name"},
-                            {"variable":"Origin","value":"Brain"}
+                            {"variable":"ORIGIN","value":"BRAIN"}
                ]}]
              },
            "SHOWLOGLEVEL":{"label":"Loglevels defined", "commandset": [{"type":"loglevel", "command":"SHOWLOGLEVEL",
@@ -115,7 +115,7 @@
              "itemlabel":"DYNAMIK JSON.parse(\"$Result\").TextLevel",
              "evalnext":[{"test":true, "then":"LOGLEVEL", "or":""}],
              "evalwrite":[{"variable":"MODULE","value":"DYNAMIK JSON.parse(\"$Result\").Name"},
-                          {"variable":"Origin","value":"Meta"} 
+                          {"variable":"ORIGIN","value":"META"} 
              ]}]
            },
            "LOGLEVEL":{"label":"Set LogLevel", 
@@ -134,7 +134,8 @@
                  "itemaction":"__LOGLEVEL","itemUI" : "goBack","evalwrite":[{"variable":"LOGLEVEL","value":"DEBUG"}]}
                ]
            },
-           "__LOGLEVEL":{"label":"", "commandset": [{"type":"loglevel", "command":"$LOGLEVEL,$MODULE,$Origin"}]},
+           "__LOGLEVEL":{"label":"", "commandset": [{"type":"loglevel", "command":"$LOGLEVEL,$MODULE,$ORIGIN"}]},
+           
            "flushImageCache":{"label":"", "commandset":[{"type":"http-get", "command":"http://$NeeoBrainIP:3000/v1/api/flushImagecache/", "queryresult":"$.Result", "itemname":"$Result", "itemtype": "itemtype", "itemlabel":"Result", "itemimage":"https://raw.githubusercontent.com/jac459/metadriver/master/AVReceiver/rooms.jpg", "evalnext":[{"test":true, "then":"Devices", "or":"Rooms"}]}]},
 
            "RestartMeta":{"label":"", "commandset": [{"type":"cli", "command":"pm2 restart meta"}]},
