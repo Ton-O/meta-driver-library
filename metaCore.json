@@ -52,12 +52,13 @@
          "feeders": {
            "Settings":{"label":"Settings", 
              "commandset": [{"type":"static", "command":"{}", "itemtype":"tile", "itemaction":"","itemimage":"https://raw.githubusercontent.com/jac459/meta-core/main/pics/meta.jpg"},
-               {"type":"static", "command":"[{\"name\":\"Library\", \"label\":\"Drivers Library\", \"imageurl\":\"https://raw.githubusercontent.com/jac459/meta-core/main/pics/list.jpg\",\"navigation\":\"Library\"}, {\"name\":\"Recipes\", \"label\":\"Neeo Recipes\", \"imageurl\":\"https://raw.githubusercontent.com/jac459/meta-core/main/pics/recipe.jpg\",\"navigation\":\"Recipes\"}, {\"name\":\"Global Settings\", \"label\":\"Manage the .meta\", \"imageurl\":\"https://raw.githubusercontent.com/jac459/meta-core/main/pics/settings.jpg\",\"navigation\":\"Manage\"}]", 
+               {"type":"static", "command":"[{\"name\":\"Flush image\", \"label\":\"Flush imagecache\", \"imageurl\":\"https://raw.githubusercontent.com/jac459/meta-core/main/pics/list.jpg\",\"navigation\":\"flushImageCache\"},{\"name\":\"Library\", \"label\":\"Drivers Library\", \"imageurl\":\"https://raw.githubusercontent.com/jac459/meta-core/main/pics/list.jpg\",\"navigation\":\"Library\"}, {\"name\":\"Recipes\", \"label\":\"Neeo Recipes\", \"imageurl\":\"https://raw.githubusercontent.com/jac459/meta-core/main/pics/recipe.jpg\",\"navigation\":\"Recipes\"}, {\"name\":\"Global Settings\", \"label\":\"Manage the .meta\", \"imageurl\":\"https://raw.githubusercontent.com/jac459/meta-core/main/pics/settings.jpg\",\"navigation\":\"Manage\"}]", 
                  "queryresult":"$.*", "itemname":"DYNAMIK JSON.parse(\"$Result\").name", "itemlabel":"DYNAMIK JSON.parse(\"$Result\").label", "itemimage":"DYNAMIK JSON.parse(\"$Result\").imageurl",
                  "evalnext":[
-                   {"test":"DYNAMIK (JSON.parse(\"$Result\").navigation == \"Library\")", "then":"Library", "or":""},
-                   {"test":"DYNAMIK (JSON.parse(\"$Result\").navigation == \"Recipes\")", "then":"Rooms", "or":""},
-                   {"test":"DYNAMIK (JSON.parse(\"$Result\").navigation == \"Manage\")", "then":"Manage", "or":""}
+                   {"test":"DYNAMIK (JSON.parse(\"$Result\").navigation == \"Library\")", "then":"Library"},
+                   {"test":"DYNAMIK (JSON.parse(\"$Result\").navigation == \"Recipes\")", "then":"Rooms"},
+                   {"test":"DYNAMIK (JSON.parse(\"$Result\").navigation == \"Manage\")", "then":"Manage"},
+                   {"test":"DYNAMIK (JSON.parse(\"$Result\").navigation == \"flushImageCache\")", "then":"flushImageCache"}
                  ]
                }]
            },
@@ -134,6 +135,8 @@
                ]
            },
            "__LOGLEVEL":{"label":"", "commandset": [{"type":"loglevel", "command":"$LOGLEVEL,$MODULE,$Origin"}]},
+           "flushImageCache":{"label":"", "commandset":[{"type":"http-get", "command":"http://$NeeoBrainIP:3000/v1/api/flushImagecache/", "queryresult":"$.Result", "itemname":"$Result", "itemtype": "itemtype", "itemlabel":"Result", "itemimage":"https://raw.githubusercontent.com/jac459/metadriver/master/AVReceiver/rooms.jpg", "evalnext":[{"test":true, "then":"Devices", "or":"Rooms"}]}]},
+
            "RestartMeta":{"label":"", "commandset": [{"type":"cli", "command":"pm2 restart meta"}]},
            "RestartNodeRed":{"label":"", "commandset": [{"type":"cli", "command":"pm2 restart node-red"}]},
            "RestartMosquitto":{"label":"", "commandset": [{"type":"cli", "command":"pm2 restart mosquitto"}]},
