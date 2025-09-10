@@ -121,17 +121,17 @@
            },
            "LOGLEVEL":{"label":"Set LogLevel", 
              "commandset": [
-                 {"type":"static", "command":"{\"\":true}", "queryresult":"$.", "itemname":"REMOVE", "itemlabel":"REMOVE Loglevel $MODULE", "itemimage":"https://raw.githubusercontent.com/Ton-O/meta-driver-library/refs/heads/main/pics/lines.png",
+                 {"type":"static", "command":"{\"\":true}", "queryresult":"$.", "itemname":"REMOVE", "itemlabel":"REMOVE Loglevel $MODULE", "itemimage":"https://raw.githubusercontent.com/Ton-O/meta-driver-library/refs/heads/main/pics/global.png",
                  "itemaction":"__LOGLEVEL","itemUI" : "goBack","evalwrite":[{"variable":"LOGLEVEL","value":""}]},
-                 {"type":"static", "command":"{\"\":true}", "queryresult":"$.", "itemname":"QUIET", "itemlabel":"Loglevel QUIET for $MODULE", "itemimage":"https://raw.githubusercontent.com/Ton-O/meta-driver-library/refs/heads/main/pics/lines.png",
+                 {"type":"static", "command":"{\"\":true}", "queryresult":"$.", "itemname":"QUIET", "itemlabel":"Loglevel QUIET for $MODULE", "itemimage":"https://raw.githubusercontent.com/Ton-O/meta-driver-library/refs/heads/main/pics/silence.png",
                  "itemaction":"__LOGLEVEL","itemUI" : "goBack","evalwrite":[{"variable":"LOGLEVEL","value":"QUIET"}]},
-                 {"type":"static", "command":"{\"\":true}", "queryresult":"$.", "itemname":"WARNING", "itemlabel":"Loglevel Warning for $MODULE", "itemimage":"https://raw.githubusercontent.com/Ton-O/meta-driver-library/refs/heads/main/pics/lines.png",
+                 {"type":"static", "command":"{\"\":true}", "queryresult":"$.", "itemname":"WARNING", "itemlabel":"Loglevel Warning for $MODULE", "itemimage":"https://raw.githubusercontent.com/Ton-O/meta-driver-library/refs/heads/main/pics/warning.png",
                  "itemaction":"__LOGLEVEL","itemUI" : "goBack","evalwrite":[{"variable":"LOGLEVEL","value":"WARNING"}]},
-                 {"type":"static", "command":"{\"\":true}", "queryresult":"$.", "itemname":"INFO", "itemlabel":"Loglevel INFO for $MODULE", "itemimage":"https://raw.githubusercontent.com/Ton-O/meta-driver-library/refs/heads/main/pics/lines.png",
+                 {"type":"static", "command":"{\"\":true}", "queryresult":"$.", "itemname":"INFO", "itemlabel":"Loglevel INFO for $MODULE", "itemimage":"https://raw.githubusercontent.com/Ton-O/meta-driver-library/refs/heads/main/pics/info.png",
                  "itemaction":"__LOGLEVEL","itemUI" : "goBack","evalwrite":[{"variable":"LOGLEVEL","value":"INFO"}]},
-                 {"type":"static", "command":"{\"\":true}", "queryresult":"$.", "itemname":"VERBOSE", "itemlabel":"Loglevel VERBOSE for $MODULE", "itemimage":"https://raw.githubusercontent.com/Ton-O/meta-driver-library/refs/heads/main/pics/lines.png",
+                 {"type":"static", "command":"{\"\":true}", "queryresult":"$.", "itemname":"VERBOSE", "itemlabel":"Loglevel VERBOSE for $MODULE", "itemimage":"https://raw.githubusercontent.com/Ton-O/meta-driver-library/refs/heads/main/pics/verbose.png",
                  "itemaction":"__LOGLEVEL","itemUI" : "goBack","evalwrite":[{"variable":"LOGLEVEL","value":"VERBOSE"}]},
-                 {"type":"static", "command":"{\"\":true}", "queryresult":"$.", "itemname":"DEBUG", "itemlabel":"Loglevel DEBUG for $MODULE", "itemimage":"https://raw.githubusercontent.com/Ton-O/meta-driver-library/refs/heads/main/pics/lines.png",
+                 {"type":"static", "command":"{\"\":true}", "queryresult":"$.", "itemname":"DEBUG", "itemlabel":"Loglevel DEBUG for $MODULE", "itemimage":"https://raw.githubusercontent.com/Ton-O/meta-driver-library/refs/heads/main/pics/debug.png",
                  "itemaction":"__LOGLEVEL","itemUI" : "goBack","evalwrite":[{"variable":"LOGLEVEL","value":"DEBUG"}]}
                ]
            },
