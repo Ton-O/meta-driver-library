@@ -1,0 +1,189 @@
+{"name":"HA-KPN",
+   "manufacturer":"Tono",
+   "type":"DVB",
+   "version":6,
+   "discover":{
+      "welcomeheadertext":"Choose your Homeassistant instance",
+      "welcomedescription":"powered by Ton-o",
+       "command": {"type":"dnssd", "command":"home-assistant", 
+          "queryresult":["$.*"]
+       }
+    },
+   "template" : {
+      "manufacturer":"Tono",
+      "type":"DVB",
+      "version":6,   
+      "deviceCapabilities":["channelSave"],
+      "variables": {
+            "MyResult":"",
+            "AllChannels":"",
+            "Channel":"", 
+            "MyHASIp":"DYNAMIK_INST_START DYNAMIK  JSON.parse(\"$Result\").addresses[0].host DYNAMIK_INST_END",
+            "MyHASPort":"DYNAMIK_INST_START DYNAMIK JSON.parse(\"$Result\").addresses[0].port DYNAMIK_INST_END",
+            "MyHASMAC": "DYNAMIK_INST_START DYNAMIK JSON.parse(\"$Result\").addresses[0].mac DYNAMIK_INST_END",            
+            "APIKey":"\"Authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIzMjJmNzRjOTIxMjk0MmM1OGMwMDJiYWY5N2RhNDMzNyIsImlhdCI6MTY2OTA1OTIwMiwiZXhwIjoxOTg0NDE5MjAyfQ.NRtfGRuHmLqsQwwWhAcYmXuE-ekf-iW9ypP6iWZQ2A4\""
+      },
+      "dynamicname": "DYNAMIK_INST_START DYNAMIK \"KPN-TV via HA \"+JSON.parse(\"$Result\").id.split(\"._home-assistant._tcp.local\")[0] DYNAMIK_INST_END",
+      "dynamicid": "DYNAMIK_INST_START DYNAMIK \"KPN-TV via HA \"+JSON.parse(\"$Result\").id.split(\"._home-assistant._tcp.local\")[0] DYNAMIK_INST_END",
+      "labels": {
+         "Result": {"label": "MyResult","listen": "MyResult"}
+      }, 
+      "buttons":{
+         "POWER ON": 
+            {"label":"", "type":"http-rest",
+            "command":"{\"verb\":\"post\",\"call\":\"http://$MyHASIp:$MyHASPort/api/services/media_player/turn_on\",\"message\":{\"entity_id\": \"media_player.kpn_diw7022\"},\"headers\":{$APIKey,\"Content-Type\": \"application/json\"}}",
+            "queryresult":"$",
+            "evalwrite":[{"variable":"MyResult","value":"DYNAMIK JSON.parse(\"$Result\")"}],
+            "evaldont":[{"test":true,"then":"__Channels", "or":""}]
+         },
+         "POWER OFF": 
+            {"label":"", "type":"http-rest",
+            "command":"{\"verb\":\"post\",\"call\":\"http://$MyHASIp:$MyHASPort/api/services/media_player/turn_off\",\"message\":{\"entity_id\": \"media_player.kpn_diw7022\"},\"headers\":{$APIKey,\"Content-Type\": \"application/json\"}}",
+            "queryresult":"$",
+            "evalwrite":[{"variable":"MyResult","value":"DYNAMIK JSON.parse(\"$Result\")"}]
+            },
+         "TopMenu": {"label":"", "type":"http-rest",
+            "command":"{\"verb\":\"post\",\"call\":\"http://$MyHASIp:$MyHASPort/api/services/remote/send_command\",\"message\":{\"entity_id\": \"remote.kpn_diw7022\", \"command\":\"MediaTopMenu\"},\"headers\":{$APIKey,\"Content-Type\": \"application/json\"}}",
+            "queryresult":"$",
+            "evalwrite":[{"variable":"MyResult","value":"DYNAMIK JSON.parse(\"$Result\")"}]
+
+         },
+         "CURSOR UP": {"label":"", "type":"http-rest",
+            "command":"{\"verb\":\"post\",\"call\":\"http://$MyHASIp:$MyHASPort/api/services/remote/send_command\",\"message\":{\"entity_id\": \"remote.kpn_diw7022\", \"command\":\"DPAD_UP\"},\"headers\":{$APIKey,\"Content-Type\": \"application/json\"}}",
+            "queryresult":"$",
+            "evalwrite":[{"variable":"MyResult","value":"DYNAMIK JSON.parse(\"$Result\")"}]
+         },
+         "CURSOR RIGHT": {"label":"", "type":"http-rest",
+            "command":"{\"verb\":\"post\",\"call\":\"http://$MyHASIp:$MyHASPort/api/services/remote/send_command\",\"message\":{\"entity_id\": \"remote.kpn_diw7022\", \"command\":\"DPAD_RIGHT\"},\"headers\":{$APIKey,\"Content-Type\": \"application/json\"}}",
+            "queryresult":"$",
+            "evalwrite":[{"variable":"MyResult","value":"DYNAMIK JSON.parse(\"$Result\")"}]
+         },
+         "CURSOR DOWN": {"label":"", "type":"http-rest",
+            "command":"{\"verb\":\"post\",\"call\":\"http://$MyHASIp:$MyHASPort/api/services/remote/send_command\",\"message\":{\"entity_id\": \"remote.kpn_diw7022\", \"command\":\"DPAD_DOWN\"},\"headers\":{$APIKey,\"Content-Type\": \"application/json\"}}",
+            "queryresult":"$",
+            "evalwrite":[{"variable":"MyResult","value":"DYNAMIK JSON.parse(\"$Result\")"}]
+         },
+         "CURSOR LEFT": {"label":"", "type":"http-rest",
+            "command":"{\"verb\":\"post\",\"call\":\"http://$MyHASIp:$MyHASPort/api/services/remote/send_command\",\"message\":{\"entity_id\": \"remote.kpn_diw7022\", \"command\":\"DPAD_LEFT\"},\"headers\":{$APIKey,\"Content-Type\": \"application/json\"}}",
+            "queryresult":"$",
+            "evalwrite":[{"variable":"MyResult","value":"DYNAMIK JSON.parse(\"$Result\")"}]
+         },
+         "CURSOR ENTER": {"label":"", "type":"http-rest",
+            "command":"{\"verb\":\"post\",\"call\":\"http://$MyHASIp:$MyHASPort/api/services/remote/send_command\",\"message\":{\"entity_id\": \"remote.kpn_diw7022\", \"command\":\"DPAD_CENTER\"},\"headers\":{$APIKey,\"Content-Type\": \"application/json\"}}",
+            "queryresult":"$",
+            "evalwrite":[{"variable":"MyResult","value":"DYNAMIK JSON.parse(\"$Result\")"}]
+         },
+         "CHANNEL UP": {"label":"", "type":"http-rest",
+            "command":"{\"verb\":\"post\",\"call\":\"http://$MyHASIp:$MyHASPort/api/services/remote/send_command\",\"message\":{\"entity_id\": \"remote.kpn_diw7022\", \"command\":\"CHANNEL_UP\"},\"headers\":{$APIKey,\"Content-Type\": \"application/json\"}}",
+            "queryresult":"$",
+            "evalwrite":[{"variable":"MyResult","value":"DYNAMIK JSON.parse(\"$Result\")"}]
+         },
+         "CHANNEL DOWN": {"label":"", "type":"http-rest",
+            "command":"{\"verb\":\"post\",\"call\":\"http://$MyHASIp:$MyHASPort/api/services/remote/send_command\",\"message\":{\"entity_id\": \"remote.kpn_diw7022\", \"command\":\"CHANNEL_DOWN\"},\"headers\":{$APIKey,\"Content-Type\": \"application/json\"}}",
+            "queryresult":"$",
+            "evalwrite":[{"variable":"MyResult","value":"DYNAMIK JSON.parse(\"$Result\")"}]
+         },
+         "BACK": {"label":"", "type":"http-rest",
+            "command":"{\"verb\":\"post\",\"call\":\"http://$MyHASIp:$MyHASPort/api/services/remote/send_command\",\"message\":{\"entity_id\": \"remote.kpn_diw7022\", \"command\":\"BACK\"},\"headers\":{$APIKey,\"Content-Type\": \"application/json\"}}",
+            "queryresult":"$",
+            "evalwrite":[{"variable":"MyResult","value":"DYNAMIK JSON.parse(\"$Result\")"}]
+         },
+         "MENU": {"label":"", "type":"http-rest",
+            "command":"{\"verb\":\"post\",\"call\":\"http://$MyHASIp:$MyHASPort/api/services/remote/send_command\",\"message\":{\"entity_id\": \"remote.kpn_diw7022\", \"command\":\"HOME\"},\"headers\":{$APIKey,\"Content-Type\": \"application/json\"}}",
+            "queryresult":"$",
+            "evalwrite":[{"variable":"MyResult","value":"DYNAMIK JSON.parse(\"$Result\")"}]
+         },
+         "GUIDE": {"label":"", "type":"http-rest",
+            "command":"{\"verb\":\"post\",\"call\":\"http://$MyHASIp:$MyHASPort/api/services/remote/send_command\",\"message\":{\"entity_id\": \"remote.kpn_diw7022\", \"command\":\"GUIDE\"},\"headers\":{$APIKey,\"Content-Type\": \"application/json\"}}",
+            "queryresult":"$",
+            "evalwrite":[{"variable":"MyResult","value":"DYNAMIK JSON.parse(\"$Result\")"}]
+         },
+         "PLAY": {"label":"", "type":"http-rest",
+            "command":"{\"verb\":\"post\",\"call\":\"http://$MyHASIp:$MyHASPort/api/services/remote/send_command\",\"message\":{\"entity_id\": \"remote.kpn_diw7022\", \"command\":\"MEDIA_PLAY\"},\"headers\":{$APIKey,\"Content-Type\": \"application/json\"}}",
+            "queryresult":"$",
+            "evalwrite":[{"variable":"MyResult","value":"DYNAMIK JSON.parse(\"$Result\")"}]
+         },
+         "PAUSE": {"label":"", "type":"http-rest",
+            "command":"{\"verb\":\"post\",\"call\":\"http://$MyHASIp:$MyHASPort/api/services/remote/send_command\",\"message\":{\"entity_id\": \"remote.kpn_diw7022\", \"command\":\"MEDIA_PAUSE\"},\"headers\":{$APIKey,\"Content-Type\": \"application/json\"}}",
+            "queryresult":"$",
+            "evalwrite":[{"variable":"MyResult","value":"DYNAMIK JSON.parse(\"$Result\")"}]
+         },
+         "FORWARD": {"label":"", "type":"http-rest",
+            "command":"{\"verb\":\"post\",\"call\":\"http://$MyHASIp:$MyHASPort/api/services/remote/send_command\",\"message\":{\"entity_id\": \"remote.kpn_diw7022\", \"command\":\"MEDIA_FAST_FORWARD\"},\"headers\":{$APIKey,\"Content-Type\": \"application/json\"}}",
+            "queryresult":"$",
+            "evalwrite":[{"variable":"MyResult","value":"DYNAMIK JSON.parse(\"$Result\")"}]
+         },
+         "REVERSE": {"label":"", "type":"http-rest",
+            "command":"{\"verb\":\"post\",\"call\":\"http://$MyHASIp:$MyHASPort/api/services/remote/send_command\",\"message\":{\"entity_id\": \"remote.kpn_diw7022\", \"command\":\"MEDIA_REWIND\"},\"headers\":{$APIKey,\"Content-Type\": \"application/json\"}}",
+            "queryresult":"$",
+            "evalwrite":[{"variable":"MyResult","value":"DYNAMIK JSON.parse(\"$Result\")"}]
+         },
+         "RECORD": {"label":"", "type":"http-rest",
+            "command":"{\"verb\":\"post\",\"call\":\"http://$MyHASIp:$MyHASPort/api/services/remote/send_command\",\"message\":{\"entity_id\": \"remote.kpn_diw7022\", \"command\":\"MEDIA_RECORD\"},\"headers\":{$APIKey,\"Content-Type\": \"application/json\"}}",
+            "queryresult":"$",
+            "evalwrite":[{"variable":"MyResult","value":"DYNAMIK JSON.parse(\"$Result\")"}]
+         },
+         "STOP": {"label":"", "type":"http-rest",
+            "command":"{\"verb\":\"post\",\"call\":\"http://$MyHASIp:$MyHASPort/api/services/remote/send_command\",\"message\":{\"entity_id\": \"remote.kpn_diw7022\", \"command\":\"MEDIA_STOP\"},\"headers\":{$APIKey,\"Content-Type\": \"application/json\"}}",
+            "queryresult":"$",
+            "evalwrite":[{"variable":"MyResult","value":"DYNAMIK JSON.parse(\"$Result\")"}]
+         },
+         "TV": {"label":"", "type":"http-rest",
+            "command":"{\"verb\":\"post\",\"call\":\"http://$MyHASIp:$MyHASPort/api/services/remote/send_command\",\"message\":{\"entity_id\": \"remote.kpn_diw7022\", \"command\":\"TV\"},\"headers\":{$APIKey,\"Content-Type\": \"application/json\"}}",
+            "queryresult":"$",
+            "evalwrite":[{"variable":"MyResult","value":"DYNAMIK JSON.parse(\"$Result\")"}]
+         },
+         "DIGIT 0": {"label":"", "type":"http-rest",
+            "command":"{\"verb\":\"post\",\"call\":\"http://$MyHASIp:$MyHASPort/api/services/media_player/play_media\",\"message\":{\"entity_id\": \"media_player.kpn_diw7022\",\"media_content_type\": \"channel\", \"media_content_id\":\"0\"},\"headers\":{$APIKey,\"Content-Type\": \"application/json\"}}",         
+            "queryresult":"$",
+            "evalwrite":[{"variable":"MyResult","value":"DYNAMIK JSON.parse(\"$Result\")"}]
+         },
+         "DIGIT 1": {"label":"", "type":"http-rest",
+            "command":"{\"verb\":\"post\",\"call\":\"http://$MyHASIp:$MyHASPort/api/services/media_player/play_media\",\"message\":{\"entity_id\": \"media_player.kpn_diw7022\",\"media_content_type\": \"channel\", \"media_content_id\":\"1\"},\"headers\":{$APIKey,\"Content-Type\": \"application/json\"}}",         
+            "queryresult":"$",
+            "evalwrite":[{"variable":"MyResult","value":"DYNAMIK JSON.parse(\"$Result\")"}]
+         },
+         "DIGIT 2": {"label":"", "type":"http-rest",
+            "command":"{\"verb\":\"post\",\"call\":\"http://$MyHASIp:$MyHASPort/api/services/media_player/play_media\",\"message\":{\"entity_id\": \"media_player.kpn_diw7022\",\"media_content_type\": \"channel\", \"media_content_id\":\"2\"},\"headers\":{$APIKey,\"Content-Type\": \"application/json\"}}",         
+            "queryresult":"$",
+            "evalwrite":[{"variable":"MyResult","value":"DYNAMIK JSON.parse(\"$Result\")"}]
+         },
+         "DIGIT 3": {"label":"", "type":"http-rest",
+            "command":"{\"verb\":\"post\",\"call\":\"http://$MyHASIp:$MyHASPort/api/services/media_player/play_media\",\"message\":{\"entity_id\": \"media_player.kpn_diw7022\",\"media_content_type\": \"channel\", \"media_content_id\":\"3\"},\"headers\":{$APIKey,\"Content-Type\": \"application/json\"}}",         
+            "queryresult":"$",
+            "evalwrite":[{"variable":"MyResult","value":"DYNAMIK JSON.parse(\"$Result\")"}]
+         },
+         "DIGIT 4": {"label":"", "type":"http-rest",
+            "command":"{\"verb\":\"post\",\"call\":\"http://$MyHASIp:$MyHASPort/api/services/media_player/play_media\",\"message\":{\"entity_id\": \"media_player.kpn_diw7022\",\"media_content_type\": \"channel\", \"media_content_id\":\"4\"},\"headers\":{$APIKey,\"Content-Type\": \"application/json\"}}",         
+ 
+            "queryresult":"$",
+            "evalwrite":[{"variable":"MyResult","value":"DYNAMIK JSON.parse(\"$Result\")"}]
+         },
+         "DIGIT 5": {"label":"", "type":"http-rest",
+            "command":"{\"verb\":\"post\",\"call\":\"http://$MyHASIp:$MyHASPort/api/services/media_player/play_media\",\"message\":{\"entity_id\": \"media_player.kpn_diw7022\",\"media_content_type\": \"channel\", \"media_content_id\":\"5\"},\"headers\":{$APIKey,\"Content-Type\": \"application/json\"}}",         
+            "queryresult":"$",
+            "evalwrite":[{"variable":"MyResult","value":"DYNAMIK JSON.parse(\"$Result\")"}]
+         },
+         "DIGIT 6": {"label":"", "type":"http-rest",
+            "command":"{\"verb\":\"post\",\"call\":\"http://$MyHASIp:$MyHASPort/api/services/media_player/play_media\",\"message\":{\"entity_id\": \"media_player.kpn_diw7022\",\"media_content_type\": \"channel\", \"media_content_id\":\"6\"},\"headers\":{$APIKey,\"Content-Type\": \"application/json\"}}",         
+            "queryresult":"$",
+            "evalwrite":[{"variable":"MyResult","value":"DYNAMIK JSON.parse(\"$Result\")"}]
+         },
+         "DIGIT 7": {"label":"", "type":"http-rest",
+            "command":"{\"verb\":\"post\",\"call\":\"http://$MyHASIp:$MyHASPort/api/services/media_player/play_media\",\"message\":{\"entity_id\": \"media_player.kpn_diw7022\",\"media_content_type\": \"channel\", \"media_content_id\":\"7\"},\"headers\":{$APIKey,\"Content-Type\": \"application/json\"}}",         
+            "queryresult":"$",
+            "evalwrite":[{"variable":"MyResult","value":"DYNAMIK JSON.parse(\"$Result\")"}]
+         },
+         "DIGIT 8": {"label":"", "type":"http-rest",
+            "command":"{\"verb\":\"post\",\"call\":\"http://$MyHASIp:$MyHASPort/api/services/media_player/play_media\",\"message\":{\"entity_id\": \"media_player.kpn_diw7022\",\"media_content_type\": \"channel\", \"media_content_id\":\"8\"},\"headers\":{$APIKey,\"Content-Type\": \"application/json\"}}",         
+            "queryresult":"$",
+            "evalwrite":[{"variable":"MyResult","value":"DYNAMIK JSON.parse(\"$Result\")"}]
+         },
+         "DIGIT 9": {"label":"", "type":"http-rest",
+            "command":"{\"verb\":\"post\",\"call\":\"http://$MyHASIp:$MyHASPort/api/services/media_player/play_media\",\"message\":{\"entity_id\": \"media_player.kpn_diw7022\",\"media_content_type\": \"channel\", \"media_content_id\":\"9\"},\"headers\":{$APIKey,\"Content-Type\": \"application/json\"}}",         
+            "queryresult":"$",
+            "evalwrite":[{"variable":"MyResult","value":"DYNAMIK JSON.parse(\"$Result\")"}]
+         }
+      }
+   }
+}
