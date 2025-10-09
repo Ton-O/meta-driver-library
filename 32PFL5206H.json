@@ -1,106 +1,103 @@
 {
-    "name":"32PFL5206H/12",
-    "manufacturer":"Philips",
-    "type":"TV",
-    "version": 1,
-    "variables":{
-    "Broadlinks":"",
-    "Broadlinks2":""
-    },
-    "discover":{
-       "welcomeheadertext":"Broadlink driver",
-       "welcomedescription":"By Tono",
-       "initcommandset":[
+   "name":"32PFL5206H/12",
+   "manufacturer":"Philips",
+   "type":"TV",
+   "version": 1,
+   "variables":{
+   "Broadlinks":"",
+   "Broadlinks2":""
+   },
+   "discover":{
+      "welcomeheadertext":"Broadlink driver",
+      "welcomedescription":"By Tono",
+      "initcommandset":[
          { "label":"","type":"cli","command":"python3 /opt/meta/.Python-stuff/python-broadlink/cli/broadlink_discovery","queryresult":["\/--type ([0-9a-z]+)* --host ([0-9a-z.]+)* --mac ([0-9a-z]+) ([\\S]+)\/g"],
-          "evalwrite":[{"variable":"Broadlinks","value":"$Result"}]
-          }],
-       "command":{"label":"","type":"static","command":"DYNAMIK $Broadlinks","queryresult":[""],
-          "evalwrite":[{"variable":"Broadlinks2","value":"$Result"}]
-          },
-       "queryresult":[""]
+         "evalwrite":[{"variable":"Broadlinks","value":"$Result"}]
+         }],
+      "command":{"label":"","type":"static","command":"DYNAMIK $Broadlinks","queryresult":[""],
+         "evalwrite":[{"variable":"Broadlinks2","value":"$Result"}]
+         },
+      "queryresult":[""]
+      },
+   "template":{
+      "dynamicname":"DYNAMIK_INST_START DYNAMIK \"TV - \" + \"$Result\".split(\" \")[6] DYNAMIK_INST_END ",
+      "dynamicid":"DYNAMIK_INST_START DYNAMIK \"TV - \" + \"$Result\".split(\" \")[5] DYNAMIK_INST_END ",
+      "name":"32PFL5206H/12",
+      "manufacturer":"Philips",
+      "type":"TV",
+      "deviceCapabilities": [
+         "channelSave"
+         ],
+      "version": 1,
+
+      "variables":{
+         "MyStatus":"APSIE", 
+         "Player_FinishTime":"Poe",
+         "BroadlinkLearn":"http://127.0.0.1:5384/rcve?host=DYNAMIK_INST_START DYNAMIK \"$Result\".split(\" \")[3].split(\" \")[0] DYNAMIK_INST_END&&type=DYNAMIK_INST_START DYNAMIK \"$Result\".split(\" \")[1].split(\" \")[0] DYNAMIK_INST_END&&mac=DYNAMIK_INST_START DYNAMIK \"$Result\".split(\" \")[5] DYNAMIK_INST_END",
+         "BroadlinkSend":"http://127.0.0.1:5384/xmitGC?host=DYNAMIK_INST_START DYNAMIK \"$Result\".split(\" \")[3].split(\" \")[0] DYNAMIK_INST_END&&type=DYNAMIK_INST_START DYNAMIK \"$Result\".split(\" \")[1].split(\" \")[0] DYNAMIK_INST_END&&mac=DYNAMIK_INST_START DYNAMIK \"$Result\".split(\" \")[5] DYNAMIK_INST_END&stream="
        },
-    "template":{
-       "dynamicname":"DYNAMIK_INST_START DYNAMIK \"TV - \" + \"$Result\".split(\" \")[5] DYNAMIK_INST_END ",
-       "dynamicid":"DYNAMIK_INST_START DYNAMIK \"TV - \" + \"$Result\".split(\" \")[5] DYNAMIK_INST_END ",
-       "name":"32PFL5206H/12",
-       "manufacturer":"Philips",
-       "type":"TV",
-       "deviceCapabilities": [
-          "channelSave"
-          ],
-       "version": 1,
- 
-       "variables":{
-          "MyStatus":"APSIE", 
-          "Player_FinishTime":"Poe",
-          "BroadlinkLearn":"http://127.0.0.1:5384/rcve?host=DYNAMIK_INST_START DYNAMIK \"$Result\".split(\" \")[3].split(\" \")[0] DYNAMIK_INST_END&&type=DYNAMIK_INST_START DYNAMIK \"$Result\".split(\" \")[1].split(\" \")[0] DYNAMIK_INST_END&&mac=DYNAMIK_INST_START DYNAMIK \"$Result\".split(\" \")[5] DYNAMIK_INST_END",
-          "BroadlinkSend":"http://127.0.0.1:5384/xmitGC?host=DYNAMIK_INST_START DYNAMIK \"$Result\".split(\" \")[3].split(\" \")[0] DYNAMIK_INST_END&&type=DYNAMIK_INST_START DYNAMIK \"$Result\".split(\" \")[1].split(\" \")[0] DYNAMIK_INST_END&&mac=DYNAMIK_INST_START DYNAMIK \"$Result\".split(\" \")[5] DYNAMIK_INST_END&stream="
-        },
-        "labels": {
-          "MyStatus": {"label": "MyStatus","listen": "MyStatus"},
-          "Player_FinishTime": {"label": "Playing FinishTime","listen": "Player_FinishTime"}
-        },
-       "buttons":{
-          "TEST0": {"type":"neeoapi", "command":"{\"verb\":\"isThisFavorite\"}","queryresult": "$", 
-          "evalwrite":[{"variable":"MyStatus", "value":"DYNAMIK JSON.parse(\"$Result\").name"},
-                       {"variable":"Player_FinishTime", "value":"DYNAMIK JSON.parse(\"$Result\").name"}]},
-          "BACK":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,96,32,16,32,16,16,16,16,16,32,32,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,32,32,16,16,32,16,16,16,16,16,16,16,16,3037"},
-          "CHANNEL DOWN":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,64,64,32,32,32,32,32,32,64,32,2487"},
-          "CHANNEL UP":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,64,64,32,32,32,32,32,32,32,32,2487"},
-          "CURSOR DOWN":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,64,32,32,32,32,64,32,2487"},
-          "CURSOR LEFT":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,64,64,64,64,32,2487"},
-          "CURSOR RIGHT":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,64,64,32,32,64,2487"},
-          "CURSOR UP":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,64,32,32,32,32,32,32,2487"},
-          "DIGIT 0":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,2487"},
-          "DIGIT 1":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,32,2487"},
-          "DIGIT 2":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,64,2487"},
-          "DIGIT 3":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,32,32,32,2487"},
-          "DIGIT 4":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,64,32,32,2487"},
-          "DIGIT 5":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,64,64,32,2487"},
-          "DIGIT 6":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,32,32,64,2487"},
-          "DIGIT 7":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,32,32,32,32,32,2487"},
-          "DIGIT 8":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,64,32,32,32,32,2487"},
-          "DIGIT 9":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,64,32,32,64,32,2487"},
-          "CURSOR ENTER":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,64,64,32,32,32,32,32,2487"},
-          "FORMAT 4:3":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,64,32,32,32,32,32,32,64,64,64,64,32,2487"},
-          "FORMAT AUTO":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,64,32,32,32,32,32,32,32,32,32,32,64,64,32,2487"},
-          "FORMAT SCROLL":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,32,32,32,32,64,32,32,32,32,32,32,32,32,64,2487"},
-          "FORMAT SUPERZOOM":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,64,32,32,32,32,32,32,32,32,32,32,32,32,64,2487"},
-          "FORMAT UNSCALED":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,64,32,32,32,32,32,32,64,64,64,64,32,2487"},
-          "FORMAT WIDE":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,64,32,32,32,32,32,32,64,64,64,32,32,2487"},
-          "FORWARD":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,96,32,16,32,16,16,16,16,16,32,32,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,32,32,32,32,16,16,16,16,16,2487"},
-          "FUNCTION BLUE":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,32,32,32,32,64,64,64,32,32,32,32,64,2487"},
-          "FUNCTION GREEN":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,32,32,32,32,64,64,64,32,32,64,32,32,2487"},
-          "FUNCTION RED":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,32,32,32,32,64,64,64,64,64,32,32,32,2487"},
-          "FUNCTION YELLOW":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,32,32,32,32,64,64,64,32,32,64,64,32,2487"},
-          "INPUT HDMI 1":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,64,32,32,64,32,32,32,32,64,64,32,32,2487"},
-          "INPUT HDMI 2":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,64,32,32,32,32,64,32,32,64,32,2487"},
-          "INPUT HDMI 3":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,32,32,64,32,32,32,32,32,32,32,32,64,32,32,32,32,64,32,32,32,32,2487"},
-          "INPUT HDMI 4":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,64,32,32,32,32,32,32,32,32,64,32,32,64,32,2487"},
-          "INPUT SCART 1":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,64,32,32,32,32,32,32,32,32,64,64,32,32,32,2487"},
-          "INPUT TUNER 1":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,64,32,32,64,32,32,64,64,32,32,32,32,2487"},
-          "INPUT VGA 1":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,64,32,32,64,32,32,64,64,32,32,32,32,2487"},
-          "MENU":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,64,32,32,64,64,2487"},
-          "MENU HOME":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,96,32,16,32,16,16,16,16,16,32,32,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,32,32,32,32,32,32,16,16,16,2487"},
-          "MUTE TOGGLE":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,32,32,64,64,32,2487"},
-          "NEXT":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,64,64,32,32,32,32,32,32,32,32,2487"},
-          "OPTIONS":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,96,32,16,32,16,16,16,16,16,32,32,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,32,32,16,16,16,16,16,16,16,16,16,16,16,2487"},
-          "PAUSE":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,64,32,32,64,32,32,32,32,32,32,2487"},
-          "PLAY":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,96,32,16,32,16,16,16,16,16,32,32,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,32,32,32,16,16,32,16,16,16,2487"},
-          "POWER OFF":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,4,1,32,32,64,32,32,32,32,32,32,32,32,32,32,64,32,32,32,32,32,32,64,64,32,2487"},
-          "POWER ON":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,4,1,32,32,64,32,32,32,32,32,32,32,32,32,32,64,32,32,32,32,32,32,32,32,32,32,32,2487"},
-          "POWER TOGGLE":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,32,32,64,32,32,2487"},
-          "PREVIOUS":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,64,64,32,32,32,32,32,32,64,32,2487"},
-          "REVERSE":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,96,32,16,32,16,16,16,16,16,32,32,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,32,32,32,32,32,16,16,2487"},
-          "INPUT SCROLL":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,64,32,32,32,32,64,32,32,32,32,2487"},
-          "STOP":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,96,32,16,32,16,16,16,16,16,32,32,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,32,16,16,32,16,16,16,16,32,2487"},
-          "SUBTITLE":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,64,64,32,32,32,2487"},
-          "TELETEXT":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,64,32,32,32,32,32,32,64,32,32,2487"},
-          "VOLUME DOWN":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,32,32,64,64,32,32,32,32,64,32,2487"},
-          "VOLUME UP":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,32,32,64,64,32,32,32,32,32,32,2487"}
-       }
-    }
- }
- 
- 
- 
+       "labels": {
+         "MyStatus": {"label": "MyStatus","listen": "MyStatus"},
+         "Player_FinishTime": {"label": "Playing FinishTime","listen": "Player_FinishTime"}
+       },
+      "buttons":{
+
+         "BACK":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,96,32,16,32,16,16,16,16,16,32,32,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,32,32,16,16,32,16,16,16,16,16,16,16,16,3037"},
+         "CHANNEL DOWN":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,64,64,32,32,32,32,32,32,64,32,2487"},
+         "CHANNEL UP":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,64,64,32,32,32,32,32,32,32,32,2487"},
+         "CURSOR DOWN":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,64,32,32,32,32,64,32,2487"},
+         "CURSOR LEFT":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,64,64,64,64,32,2487"},
+         "CURSOR RIGHT":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,64,64,32,32,64,2487"},
+         "CURSOR UP":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,64,32,32,32,32,32,32,2487"},
+         "DIGIT 0":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,2487"},
+         "DIGIT 1":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,32,2487"},
+         "DIGIT 2":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,64,2487"},
+         "DIGIT 3":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,32,32,32,2487"},
+         "DIGIT 4":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,64,32,32,2487"},
+         "DIGIT 5":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,64,64,32,2487"},
+         "DIGIT 6":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,32,32,64,2487"},
+         "DIGIT 7":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,32,32,32,32,32,2487"},
+         "DIGIT 8":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,64,32,32,32,32,2487"},
+         "DIGIT 9":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,64,32,32,64,32,2487"},
+         "CURSOR ENTER":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,64,64,32,32,32,32,32,2487"},
+         "FORMAT 4:3":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,64,32,32,32,32,32,32,64,64,64,64,32,2487"},
+         "FORMAT AUTO":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,64,32,32,32,32,32,32,32,32,32,32,64,64,32,2487"},
+         "FORMAT SCROLL":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,32,32,32,32,64,32,32,32,32,32,32,32,32,64,2487"},
+         "FORMAT SUPERZOOM":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,64,32,32,32,32,32,32,32,32,32,32,32,32,64,2487"},
+         "FORMAT UNSCALED":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,64,32,32,32,32,32,32,64,64,64,64,32,2487"},
+         "FORMAT WIDE":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,64,32,32,32,32,32,32,64,64,64,32,32,2487"},
+         "FORWARD":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,96,32,16,32,16,16,16,16,16,32,32,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,32,32,32,32,16,16,16,16,16,2487"},
+         "FUNCTION BLUE":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,32,32,32,32,64,64,64,32,32,32,32,64,2487"},
+         "FUNCTION GREEN":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,32,32,32,32,64,64,64,32,32,64,32,32,2487"},
+         "FUNCTION RED":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,32,32,32,32,64,64,64,64,64,32,32,32,2487"},
+         "FUNCTION YELLOW":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,32,32,32,32,64,64,64,32,32,64,64,32,2487"},
+         "INPUT HDMI 1":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,64,32,32,64,32,32,32,32,64,64,32,32,2487"},
+         "INPUT HDMI 2":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,64,32,32,32,32,64,32,32,64,32,2487"},
+         "INPUT HDMI 3":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,32,32,64,32,32,32,32,32,32,32,32,64,32,32,32,32,64,32,32,32,32,2487"},
+         "INPUT HDMI 4":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,64,32,32,32,32,32,32,32,32,64,32,32,64,32,2487"},
+         "INPUT SCART 1":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,64,32,32,32,32,32,32,32,32,64,64,32,32,32,2487"},
+         "INPUT TUNER 1":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,64,32,32,64,32,32,64,64,32,32,32,32,2487"},
+         "INPUT VGA 1":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,64,32,32,64,32,32,64,64,32,32,32,32,2487"},
+         "MENU":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,64,32,32,64,64,2487"},
+         "MENU HOME":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,96,32,16,32,16,16,16,16,16,32,32,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,32,32,32,32,32,32,16,16,16,2487"},
+         "MUTE TOGGLE":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,32,32,64,64,32,2487"},
+         "NEXT":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,64,64,32,32,32,32,32,32,32,32,2487"},
+         "OPTIONS":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,96,32,16,32,16,16,16,16,16,32,32,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,32,32,16,16,16,16,16,16,16,16,16,16,16,2487"},
+         "PAUSE":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,64,32,32,64,32,32,32,32,32,32,2487"},
+         "PLAY":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,96,32,16,32,16,16,16,16,16,32,32,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,32,32,32,16,16,32,16,16,16,2487"},
+         "POWER OFF":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,4,1,32,32,64,32,32,32,32,32,32,32,32,32,32,64,32,32,32,32,32,32,64,64,32,2487"},
+         "POWER ON":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,4,1,32,32,64,32,32,32,32,32,32,32,32,32,32,64,32,32,32,32,32,32,32,32,32,32,32,2487"},
+         "POWER TOGGLE":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,32,32,64,32,32,2487"},
+         "PREVIOUS":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,64,64,32,32,32,32,32,32,64,32,2487"},
+         "REVERSE":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,96,32,16,32,16,16,16,16,16,32,32,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,32,32,32,32,32,16,16,2487"},
+         "INPUT SCROLL":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,64,32,32,32,32,64,32,32,32,32,2487"},
+         "STOP":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,96,32,16,32,16,16,16,16,16,32,32,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,32,16,16,32,16,16,16,16,32,2487"},
+         "SUBTITLE":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,64,64,64,32,32,32,2487"},
+         "TELETEXT":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,64,32,32,32,32,32,32,64,32,32,2487"},
+         "VOLUME DOWN":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,32,32,64,64,32,32,32,32,64,32,2487"},
+         "VOLUME UP":{"label":"","type":"http-get", "command":"$BroadlinkSendsendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,32,32,64,64,32,32,32,32,32,32,2487"}
+      }
+   }
+}
+
+

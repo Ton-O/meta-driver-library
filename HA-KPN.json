@@ -21,7 +21,7 @@
             "MyHASIp":"DYNAMIK_INST_START DYNAMIK  JSON.parse(\"$Result\").addresses[0].host DYNAMIK_INST_END",
             "MyHASPort":"DYNAMIK_INST_START DYNAMIK JSON.parse(\"$Result\").addresses[0].port DYNAMIK_INST_END",
             "MyHASMAC": "DYNAMIK_INST_START DYNAMIK JSON.parse(\"$Result\").addresses[0].mac DYNAMIK_INST_END",            
-            "APIKey":"\"Authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIzMjJmNzRjOTIxMjk0MmM1OGMwMDJiYWY5N2RhNDMzNyIsImlhdCI6MTY2OTA1OTIwMiwiZXhwIjoxOTg0NDE5MjAyfQ.NRtfGRuHmLqsQwwWhAcYmXuE-ekf-iW9ypP6iWZQ2A4\""
+            "APIKey":"\"Authorization\": \"Bearer <xyz>\""
       },
       "dynamicname": "DYNAMIK_INST_START DYNAMIK \"KPN-TV via HA \"+JSON.parse(\"$Result\").id.split(\"._home-assistant._tcp.local\")[0] DYNAMIK_INST_END",
       "dynamicid": "DYNAMIK_INST_START DYNAMIK \"KPN-TV via HA \"+JSON.parse(\"$Result\").id.split(\"._home-assistant._tcp.local\")[0] DYNAMIK_INST_END",
