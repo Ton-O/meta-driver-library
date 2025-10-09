@@ -1,7 +1,7 @@
 {"name":"metaCore",
   "manufacturer":"Ton-O; original design by Jac459",
   "type":"AVRECEIVER",
-  "version":7,
+  "version":8,
   "deviceCapabilities": [
     "alwaysOn"
   ],    
@@ -11,7 +11,8 @@
   },
   "variables":{
      "MyStatus":"",
-     "Manifest":"https://raw.githubusercontent.com/jac459/meta/master/drivers.manifest",
+     "Manifest": "https://raw.githubusercontent.com/Ton-O/NEEO-Meta-Plus/master/drivers.manifest",
+     "xManifest":"https://raw.githubusercontent.com/jac459/meta/master/drivers.manifest",
      "LibraryDrivers":"",
      "LibraryDataStore":"",
      "ActiveDrivers":"",
@@ -37,10 +38,11 @@
   "buttons":{          
      "CHANNEL UP": {"type":"static", "command":"","queryresult": "", "evaldo":[{"test":true,"then":"__SETUP"}]},
      "CHANNEL DOWN": {"type":"static", "command":"","queryresult": "", "evaldo":[{"test":true,"then":"__SETUP"}]},
-     "POWER ON": {"type":"static", "command":"","queryresult": "", "evaldo":[{"test":true,"then":"__SETUP"}]},
+     "POWER ON": {"type":"cli", "command":"DYNAMIK \"rm /opt/meta/drivers.manifest\"","queryresult": "", "evaldo":[{"test":true,"then":"__SETUP"}]},
      "TEST0": {"type":"neeoapi", "command":"{\"verb\":\"isThisFavorite\"}","queryresult": "$", "evalwrite":[{"variable":"MyStatus", "value":"DYNAMIK JSON.parse(\"$Result\").name"}]       },
-     "__SETUP0": {"type":"cli", "command":"DYNAMIK let Manif = \"$Manifest\".split(\"/\")[\"$Manifest\".split(\"/\").length-1]; \"wget $Manifest -O \" + Manif + \" | cat \" + Manif","queryresult": "", "evalwrite":[{"variable":"LibraryDrivers", "value":"DYNAMIK \"$Result\".replace(/(\\r\\n|\\n|\\r)/gm, \"\");"}], "evaldo":[{"test":true,"then":"__SETUP2"}]},
-     "__SETUP": {"type":"cli", "command":"DYNAMIK let Manif = \"$Manifest\".split(\"/\")[\"$Manifest\".split(\"/\").length-1];\"cat \" + Manif","queryresult": "", "evalwrite":[{"variable":"LibraryDrivers", "value":"DYNAMIK \"$Result\".replace(/(\\r\\n|\\n|\\r)/gm, \"\");"}], "evaldo":[{"test":true,"then":"__SETUP2"}]},
+     "__SETUP": {"type":"cli", "command":"DYNAMIK let Manif = \"$Manifest\".split(\"/\")[\"$Manifest\".split(\"/\").length-1];  \"wget --content-disposition $Manifest;  cat \" + Manif","queryresult": "", "evalwrite":[{"variable":"LibraryDrivers", "value":"DYNAMIK \"$Result\".replace(/(\\r\\n|\\n|\\r)/gm, \"\");"}], "evaldo":[{"test":true,"then":"__SETUP2"}]},
+     "__SETUP1": {"type":"cli", "command":"DYNAMIK let Manif = \"drivers.manifest\"; wget -o /dev/null $Manifest  ; cat $Manif","queryresult": "", "evalwrite":[{"variable":"LibraryDrivers", "value":"DYNAMIK \"$Result\".replace(/(\\r\\n|\\n|\\r)/gm, \"\");"}], "evaldo":[{"test":true,"then":"__SETUP2"}]},
+     "__SETUP_old": {"type":"cli", "command":"DYNAMIK let Manif = \"$Manifest\".split(\"/\")[\"$Manifest\".split(\"/\").length-1];\"cat \" + Manif","queryresult": "", "evalwrite":[{"variable":"LibraryDrivers", "value":"DYNAMIK \"$Result\".replace(/(\\r\\n|\\n|\\r)/gm, \"\");"}], "evaldo":[{"test":true,"then":"__SETUP2"}]},
      "__SETUP2": {"type":"static", "command":"$LibraryDrivers","queryresult": "$.drivers", "evalwrite":[{"variable":"LibraryDrivers", "value":"$Result"}], "evaldo":[{"test":true,"then":"__ENRICHLIBRARY0"}]},
      "__ENRICHLIBRARY0": {"type":"cli", "command":"ls -1 $ActivatedLib\/*.json | xargs -n 1 basename| sed -e \"s/\\.json$\/\/\"","queryresult": ["/(.*)./gm"], "evalwrite":[{"variable":"ActiveDrivers","value":"DYNAMIK let src = JSON.parse(\"$Result\"); let dest = []; src.forEach((item)=>{if (!item.endsWith(\"-DataStore\")) {dest.push(item);}}); JSON.stringify(dest);"}, {"variable":"LibraryDataStore","value":"DYNAMIK let src = JSON.parse(\"$Result\"); let dest = []; src.forEach((item)=>{if (item.endsWith(\"-DataStore\")) {dest.push(item);}}); JSON.stringify(dest);"}], "evaldo":[{"test":true,"then":"__ENRICHLIBRARY1"}]},
      "__ENRICHLIBRARY1": {"type":"static", "command":"$LibraryDrivers","queryresult": "", "evalwrite":[{"variable":"LibraryDrivers", "value":"DYNAMIK let ld = $LibraryDrivers; ld.forEach((d) => { let t = d.driverLocation.split(\"\/\"); let u = t[t.length-1].split(\".json\")[0]; d.filename = u;if ($ActiveDrivers.findIndex((ad)=>{return ad == u})>=0) {d.active = true} else {d.active = false}}); JSON.stringify(ld);"}], "evaldo":[{"test":true,"then":"__ENRICHLIBRARY2"}]},
@@ -157,4 +159,3 @@
        }
   }
 }
- 
