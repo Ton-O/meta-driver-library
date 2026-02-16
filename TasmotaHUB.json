@@ -1,0 +1,268 @@
+{
+    "name":"TasmotaHUB",
+    "manufacturer":"Ton",
+    "type":"AVRECEIVER",
+    "version":3,
+    "listeners" : {
+
+        "Tasmota_hub1" : 
+        {"label":"",
+        "type":"mqtt",
+        "command":"{\"connection\": \"mqtt://$TasmotaHub_IP1\",\"topic\":\"tele/+/HASS_STATE\"}",   
+        "queryresult":"",
+        "evalwrite" : [ 
+            {"variable" : "Device_MQTTName","value" : "DYNAMIK JSON.parse(\"$Result\").topic.split('/')[1]"},
+            {"variable" : "Device_IPAddress", "value" : "DYNAMIK JSON.parse(\"$Result\").message.IPAddress"},
+            {"variable" : "Device_MQTTHub", "value" : "$TasmotaHub_IP1"},
+            {"variable" : "JSONEntry",      "value" : "{\"name\":\"$Device_MQTTName\", \"IPAddress\" : \"$Device_IPAddress\", \"MQTTHub\":\"$Device_MQTTHub\"}"}
+        ],
+        "evaldo":[{"test":"", "then":"__State"}]},
+
+        "Tasmota_hub2" : 
+        {"label":"",
+        "type":"mqtt",
+        "command":"{\"connection\": \"mqtt://$TasmotaHub_IP2\",\"topic\":\"tele/+/HASS_STATE\"}",   
+        "queryresult":"",
+        "evalwrite" : [ 
+            {"variable" : "Device_MQTTName","value" : "DYNAMIK JSON.parse(\"$Result\").topic.split('/')[1]"},
+            {"variable" : "Device_IPAddress", "value" : "DYNAMIK JSON.parse(\"$Result\").message.IPAddress"},
+            {"variable" : "Device_MQTTHub", "value" : "$TasmotaHub_IP2"},
+            {"variable" : "JSONEntry",      "value" : "{\"name\":\"$Device_MQTTName\", \"IPAddress\" : \"$Device_IPAddress\", \"MQTTHub\":\"$Device_MQTTHub\"}"}
+        ],
+        "evaldo":[{"test":"", "then":"__State"}]},
+        
+        "Tasmota_hub3" : 
+        {"label":"",
+        "type":"mqtt",
+        "command":"{\"connection\": \"mqtt://$TasmotaHub_IP3\",\"topic\":\"tele/+/HASS_STATE\"}",   
+        "queryresult":"",
+        "evalwrite" : [ 
+            {"variable" : "Device_MQTTName","value" : "DYNAMIK JSON.parse(\"$Result\").topic.split('/')[1]"},
+            {"variable" : "Device_IPAddress", "value" : "DYNAMIK JSON.parse(\"$Result\").message.IPAddress"},
+            {"variable" : "Device_MQTTHub", "value" : "$TasmotaHub_IP3"},
+            {"variable" : "JSONEntry",      "value" : "{\"name\":\"$Device_MQTTName\", \"IPAddress\" : \"$Device_IPAddress\", \"MQTTHub\":\"$Device_MQTTHub\"}"}
+        ],
+        "evaldo":[{"test":"", "then":"__State"}]}      
+
+    },
+    "variables":{
+        "JSONEntry":"", 
+        "OldEntry":"", 
+        "FirstPos":0,
+        "LastPos":0,
+        "splitDiscovery":"", 
+        "entriesInDiscovery":"", 
+        "whereInDiscovery":"", 
+        "Rewrite":"", 
+        "MYRESULT": "",
+        "Device_MQTTName": "",
+        "Device_IPAddress": "",
+        "Device_MQTTHub":"", 
+        "Device_Status":"", 
+        "Message": "",
+        "entryToDelete":"", 
+        "TasmotaHub_IP1":"192.168.0.25",
+        "TasmotaHub_IP2":"192.168.0.31",
+        "TasmotaHub_IP3":"192.168.0.41",
+        "Target-Device":"",
+        "Target-IP":"",
+        "Target-MQTTHub":"",
+        "Hostname":""
+    },
+    "persistedvariables":{
+        "Discovered":"[]"
+    },
+    "labels": {
+        "Discovered": {"label": "Discovered","listen": "Discovered"}, 
+        "MYRESULT": {"label": "MYRESULT","listen": "MYRESULT"} 
+    },   
+    "buttons":{
+        "__INITIALISE": 
+            {"label": "", 
+                "type":"static", 
+                "command":"."
+        },
+        "__State":  
+        {"label":"",    
+            "type":"static",
+            "command":"{}",
+            "evaldo":[{"test":"DYNAMIK '$Discovered'.includes('$Device_MQTTName')", "then":"__CheckMQTTHUB", "or":"__AddThis"}]
+        },
+        "__CheckMQTTHUB":  
+        {"label":"",    
+            "type":"static",
+            "command":"{}",
+            "evaldo":[{"test":"DYNAMIK '$Discovered'.includes('$JSONEntry')", "then":"", "or":"__ReplaceDevice"}]
+        },
+        "__ReplaceDevice":  
+        {"label":"",    
+            "type":"static",
+            "command":"{}",
+            "evalwrite" :  [{"variable" : "FirstPos","value" : "DYNAMIK '$Discovered'.search('$Device_MQTTName')-9"},
+                            {"variable" : "LastPos","value" : "DYNAMIK '$Discovered'.substring($FirstPos).search('}')+$FirstPos+1"},
+                            {"variable" : "OldEntry","value" : "DYNAMIK '$Discovered'.substring($FirstPos,$LastPos)"}
+            ],
+            "evaldo":[{"test":true, "then":"__DelThisLocate", "or":""}]
+        },
+        "__AddThis":  
+        {"label":"",    
+            "type":"static",
+            "command":"{}",
+            "evaldo":[{"test":"DYNAMIK '$Discovered'.length > 2", "then":"__AddThisDeDup", "or":"__AddThisEmpty"}]
+        },
+        "__AddThisEmpty":  
+        {"label":"",    
+            "type":"static",
+            "command":"{}",
+            "evalwrite" : [{"variable" : "Discovered","value" : "[$JSONEntry]"}]
+        },
+        "__AddThisDeDup":  
+        {"label":"",    
+            "type":"static",
+            "command":"{}",
+            "evaldo":[{"test":"DYNAMIK '$Discovered'.includes('$JSONEntry')", "then":"", "or":"__AddThisNext"}]
+        },
+        "__AddThisNext":  
+        {"label":"",    
+            "type":"static",
+            "command":"{}",
+            "evalwrite" : [ 
+                {"variable" : "MYRESULT","value" : "DYNAMIK '$Discovered'.substring(0,'$Discovered'.length-1) "},
+                {"variable" : "Discovered","value" : "DYNAMIK '$Discovered'.substring(0,'$Discovered'.length-1) + ','+ '$JSONEntry]'"}
+                ]
+        },
+        "__DelThis":  
+        {"label":"",    
+            "type":"static",
+            "command":"{}",
+            "evaldo":[{"test":"DYNAMIK '$Discovered'.includes('$JSONEntry')", "then":"__DelThisLocate", "or":"__AddThis"}]
+        },
+        "__DelThisLocate":  
+        {"label":"",    
+            "type":"static",
+            "command":"{}",
+            "evalwrite" : [ 
+                {"variable" : "entriesInDiscovery","value" : "DYNAMIK '$Discovered'.search('$OldEntry')"},
+                {"variable" : "entryToDelete","value" : "DYNAMIK ('$Discovered'.search('$OldEntry') >3)?',$OldEntry':'$OldEntry,'"}
+            ],
+            "evaldo":[{"test":"DYNAMIK '$Discovered'.length-3 == '$OldEntry'.length-1", "then":"__DelTheOnlyOne", "or":"__DelOthers"}]
+        },
+        "__DelTheOnlyOne":  
+        {"label":"",    
+            "type":"static",
+            "command":"{}",
+            "evalwrite" : [ {"variable" : "Discovered","value" : "[]"}],
+            "evaldo":[{"test":"DYNAMIK \"$Rewrite\"==\"yes\"", "then":"__AddThis", "or":"__DefaultAction"}]
+        },
+        "__DelOthers":  
+        {"label":"",    
+            "type":"static",
+            "command":"{}",
+            "evalwrite" : [{"variable" : "Discovered","value" : "DYNAMIK '$Discovered'.replace('$entryToDelete','')"}],
+            "evaldo":[{"test":"DYNAMIK \"$Rewrite\"==\"yes\"", "then":"__AddThis", "or":"__DefaultAction"}]
+        },
+        "__DefaultAction":  
+        {"label":"",    
+            "type":"static",
+            "command":"{}",
+            "evalwrite" : [ {"variable" : "Rewrite","value" : "yes"}]
+        },
+        "POWER ON":  
+            {"label":"",      
+            "type":"static",
+            "command":"{}", 
+            "evaldo":[{"test":true,"then":"__INITIALISE","or":""}]
+        },
+        "POWER OFF":  
+            {"label":"",      
+            "type":"static",
+            "command":"{}", 
+            "evaldo":[{"test":true,"then":"__PERSIST","or":""},
+                      {"test":true,"then":"__CLEANUP","or":""}]
+        },
+        "Check-Status":  
+            {"label":"",      
+            "type":"mqtt",
+            "command":"{\"connection\": \"mqtt://$Target-MQTTHub\",\"topic\":\"tele/$Target-Device/LWT\"}",   
+            "evaldo":[{"test":true,"then":"__PERSIST","or":""},
+                    {"test":true,"then":"__CLEANUP","or":""}]
+            } 
+                
+    },
+    "directories":
+    {"Collection":            
+        {"label":"TASMOTA",
+        "feeders":
+            {
+            "TASMOTAS":
+                {"label":"Tasmota list",
+                "commandset":[
+                    {"type":"static",		
+                        "command":"$Discovered",
+                        "queryresult":"*",
+                        "itemname":"DYNAMIK JSON.parse(\"$Result\").name",
+                        "itemlabel":"DYNAMIK JSON.parse(\"$Result\").IPAddress + \"/\" +  JSON.parse(\"$Result\").MQTTHub", 
+                        "itemimage":"https://raw.githubusercontent.com/Ton-o/meta-kodi/main/Icons/tvshow.jpg",
+                        "evalwrite":[{"variable":"Target-Device","value":"DYNAMIK JSON.parse(\"$Result\").name"},
+                            {"variable":"Target-MQTTHub","value":"DYNAMIK JSON.parse(\"$Result\").MQTTHub"}, 
+                            {"variable":"Target-IP","value":"DYNAMIK JSON.parse(\"$Result\").IPAddress"} 
+                        ],
+                        "evalnext":[{"test":true,"then":"Tasmota_Status","or":""}] 
+                    }
+                ]
+            },            
+            "Tasmota_Status":
+                {"label":"Tasmota Status",
+                "commandset":[
+                    {
+                        "type":"static",
+                        "command":"{}",
+                        "itemtype":"header",
+                        "itemaction":"",
+                        "itemname":"$Target-Device"
+                     },  
+                    {"type":"mqtt",
+                    "command":"{\"connection\": \"mqtt://$Target-MQTTHub\",\"topic\":\"tele/$Target-Device/LWT\"}",   
+                                    "queryresult":"$.message",
+                        "itemname":"$Result",
+                        "itemlabel":"", 
+                        "itemimage":"https://raw.githubusercontent.com/Ton-o/meta-kodi/main/Icons/tvshow.jpg",
+                        "evalnext":[{"test":true,"then":"Details","or":""}] 
+
+                    }
+                ]
+            },
+            "Details":
+            {"label":"Device details",
+            "commandset":[
+                    {
+                        "type":"static",
+                        "command":"{}",
+                        "itemtype":"header",
+                        "itemaction":"Delete",
+                        "itemname":"Remove $Target-Device"
+                    },  
+                    {
+                        "type":"static",
+                        "command":"[{\"name\":\"\", \"label\":\"Move this item\", \"imageurl\":\"https://raw.githubusercontent.com/Ton-o/meta-kodi/master/Icons/play.jpg\"}]", 
+                        "queryresult":"$.*", 
+                        "itemUI":"","itemname":"Delete $Target-Device!!!","itemlabel":"", "itemimage":"DYNAMIK JSON.parse(\"$Result\").imageurl",
+                        "evalwrite" : [ {"variable" : "Rewrite","value" : "no"},
+                                        {"variable" : "Device_MQTTName","value" : "$Target-Device"}
+                        ],
+                        "evaldo":[{"test":true,"then":"__ReplaceDevice","or":""}]                   
+                        }
+                ]},
+                "Delete-DEVICE":
+                {"label":"delete device from stack",
+
+                            "type":"static",
+                            "command":"{}",
+                            "itemaction":"Delete",
+                            "itemname":"Remove $Target-Device",
+                            "evaldo":[{"test":true, "then":"", "or":"__ReplaceDevice"}]
+                        }
+            }    
+        }        
+    }
+}
