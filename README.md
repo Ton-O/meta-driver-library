@@ -7,3 +7,12 @@ This version uses the latest Tasmota integration. It requires the command SetOpt
 ### Tasmota.json
 A driver to control Tasmota devices in the old style. 
 This is a complete revision of the previous one. It supports the old style (protocol) Tasmota/MQTT integration that is activated by executing the command SetOption19 1 to be executed on the Tasmota device console.
+
+## Update 2025-02-24: Broadlink driver revised
+Totally redesigned Broadlink driver. An example of the use of that driver is 32PFL5206H.json (a driver for Philips TV) which shows how to use that new driver functionality.
+Meta Plus was using the excellent library python-broadlink from mjg59 to control your Broadlink devices.
+To call the function in the python-broadlink library from the Javascript based Meta Plus, an intermediate Python module was the glue between Meta Plus and that external library.
+Though stable, the use of Python was always a bit of a "strange duck in the pond".
+This driver and its associated rework in Meta Plus is now complete Javascript based, so no python-stuff anymore.
+This intorduces the package node-broadlink and removes the package python-broadlink from mjg59
+It goes without saying that this dri ver functionality will only work with Meta Plus level 3.7 and up.
