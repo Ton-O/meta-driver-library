@@ -1,7 +1,7 @@
 { "name":"DENON Amplifier",
    "manufacturer":"Tono",
    "type":"AVRECEIVER",
-   "version":2,
+   "version":4,
    "variables": {         "StatMsg":""},
    "discover":{
      "welcomeheadertext":"Choose your DENON Instance",
@@ -15,7 +15,7 @@
       "name": "DENON Amplifier",
       "type":"AVRECEIVER",
       "manufacturer": "Tono",
-      "version": 2,
+      "version": 4,
       "variables":{
          "MyHEOSIp":"DYNAMIK_INST_START DYNAMIK  JSON.parse(\"$Result\").addresses[0].host DYNAMIK_INST_END",
          "MyHEOSPort":"DYNAMIK_INST_START DYNAMIK JSON.parse(\"$Result\").addresses[0].port DYNAMIK_INST_END",
@@ -73,11 +73,14 @@
       },
       "buttons":{
          "__INITIALISE": 
-            {"label": "", "type":"static", "command":".",
+            {"label": "", "type":"static", "command":"{}",
             "evaldo":[{"test":true,"then":"__POWER ON", "or":""},
             {"test":true,"then":"__GET_SOURCE", "or":""}
             ]
          },
+         "__METAREINIT": 
+            {"label": "", "type":"static", "command":""
+         },            
          "__POWER ON": 
             {"type":"telnet", 
             "command":"{\"call\":\"$MyHEOSIp\",\"message\":\"PWON\",\"CallType\":\"send\"}"
@@ -108,7 +111,7 @@
          },
          "POWER OFF": 
          {"type":"telnet", 
-         "command":"{\"call\":\"$MyHEOSIp\",\"message\":\"PWSTANDBY\",\"CallType\":\"exec\"}",
+         "command":"{\"call\":\"$MyHEOSIp\",\"message\":\"PWSTANDBY\",\"CallType\":\"send\"}",
          "queryresult":"$.Message",             
          "evaldo":[{"test":true,"then":"__CLEANUP", "or":""}]
          },
@@ -122,49 +125,53 @@
          },
          "__VOLUMETV": 
             {"type":"telnet", 
-            "command":"{\"call\":\"$MyHEOSIp:23\",\"message\":\"MV30\",\"CallType\":\"dsend\",\"delaytime\":2500}"
+            "command":"{\"call\":\"$MyHEOSIp:23\",\"message\":\"MV29\",\"CallType\":\"dsend\",\"delaytime\":2500}"
          },
          "__VOLUMEMPlayer": 
             {"type":"telnet", 
-            "command":"{\"call\":\"$MyHEOSIp:23\",\"message\":\"MV285\",\"CallType\":\"dsend\",\"delaytime\":2500}"
+            "command":"{\"call\":\"$MyHEOSIp:23\",\"message\":\"MV32\",\"CallType\":\"dsend\",\"delaytime\":2500}"
          },
          "__VOLUMERADIO": 
             {"type":"telnet", 
-            "command":"{\"call\":\"$MyHEOSIp:23\",\"message\":\"MV28\",\"CallType\":\"dsend\",\"delaytime\":2500}"
+            "command":"{\"call\":\"$MyHEOSIp:23\",\"message\":\"MV24\",\"CallType\":\"dsend\",\"delaytime\":2500}"
          },
          "__MUTE ON": 
-            {"label": "", "type":"static", "command":".",
+            {"label": "", "type":"static", "command":"{}",
             "evalwrite" : [{"variable" : "MuteStatus",     "value" : "MUTED"}]
          },
          "__MUTE OFF": 
-            {"label": "", "type":"static", "command":".",
+            {"label": "", "type":"static", "command":"{}",
             "evalwrite" : [{"variable" : "MuteStatus",     "value" : "NOTMUTED"}]
          },
          "MUTE TOGGLE": 
             {"type":"telnet", 
-            "command":"{\"call\":\"$MyHEOSIp\",\"message\":\"MU?\n\",\"CallType\":\"exec\",\"TelnetParms\":{\"ClearFirst\":true}}",
+            "command":"{\"call\":\"$MyHEOSIp\",\"message\":\"MU?\n\",\"CallType\":\"exec\"}",
             "queryresult":"$.Message",             
-            "evalwrite" : [{"variable" : "MuteStatus",     "value" : "DYNAMIK \"$Result\"==\"MUOFF\" ? \"MUTED\": \"NOTMUTED\""}],
-            "evaldo":[{"test":"DYNAMIK \"$MuteStatus\"==\"MUTED\"" ,"then":"__SETMUTE", "or":"__CLEARMUTE"}]
+            "evalwrite" : [{"variable" : "MuteStatus",     "value" : "DYNAMIK (\"$Result\"==\"MUOFF\") ? \"NOTMUTED\": \"MUTED\""}],
+            "evaldo":[{"test":"DYNAMIK \"$MuteStatus\"==\"MUTED\"" ,"then":"__CLEARMUTE", "or":"__SETMUTE"}]
          },
          "__SETMUTE": 
             {"type":"telnet",  
-            "command":"{\"call\":\"$MyHEOSIp\",\"message\":\"MUON\",\"CallType\":\"send\"}"
+            "command":"{\"call\":\"$MyHEOSIp\",\"message\":\"MUON\",\"CallType\":\"send\"}",
+            "evaldo":[{"test":true ,"then":"__GET_SOURCE"}]
+
          },
          "__CLEARMUTE": 
                {"type":"telnet",  
-               "command":"{\"call\":\"$MyHEOSIp\",\"message\":\"MUOFF\",\"CallType\":\"send\"}"
+               "command":"{\"call\":\"$MyHEOSIp\",\"message\":\"MUOFF\",\"CallType\":\"send\"}",
+            "evaldo":[{"test":true ,"then":"__GET_SOURCE"}]
+
          },
          "Input TV":
             {"type":"telnet",  
-            "command":"{\"call\":\"$MyHEOSIp\",\"message\":\"SISAT/CBL\",\"CallType\":\"exec\",\"TelnetParms\":{\"ClearFirst\":true}}",
+            "command":"{\"call\":\"$MyHEOSIp\",\"message\":\"SISAT/CBL\",\"CallType\":\"send\",\"TelnetParms\":{\"ClearFirst\":true}}",
             "queryresult":"$.Message",             
             "evalwrite" : [{"variable" : "SOURCE",     "value" : "TV"}],
          "evaldo":[{"test":true,"then":"__VOLUMETV", "or":""}]
          },
          "Input RADIO":
             {"type":"telnet",  
-            "command":"{\"call\":\"$MyHEOSIp\",\"message\":\"SISAT/CBL\",\"CallType\":\"exec\",\"TelnetParms\":{\"ClearFirst\":true}}",
+            "command":"{\"call\":\"$MyHEOSIp\",\"message\":\"SISAT/CBL\",\"CallType\":\"send\",\"TelnetParms\":{\"ClearFirst\":true}}",
             "queryresult":"$.Message",             
             "evalwrite" : [{"variable" : "SOURCE",     "value" : "RADIO"}],
             "evaldo":[{"test":true,"then":"__VOLUMERADIO", "or":""}]
