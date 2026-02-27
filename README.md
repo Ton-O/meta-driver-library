@@ -23,6 +23,9 @@ Lately I noticed that discovery of previously working KODI-systems (I use KODI o
 If your current KODI-systems still work, don't consider changing to this version as there is no need. But if you experience issues with discovery of KODI-devices, do consider switching. 
 I will keep both versions of KODI driver oin sync: KODI.json and Kodi-V2) in my Meta driver library. 
 
+## Update 2025-02-25: Some fixes in metaCore.json
+
+
 ## My META/NEEO related repositories
 [Meta Brain])(https://github.com/Ton-O/MetaBrain)
 [Meta Plus])(https://github.com/Ton-O/NEEO-Meta-Plus)
