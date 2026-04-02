@@ -1,7 +1,7 @@
 { "name":"KODIPlayer",
    "manufacturer":"Tono",
    "type":"MEDIAPLAYER",
-   "version":32,
+   "version":33,
    "variables": {"MYRESULT":""}, 
    "discover":{
      "welcomeheadertext":"Choose your KODI Instance",
@@ -14,7 +14,7 @@
       "name": "KODIPROD",
       "type":"MEDIAPLAYER",
       "manufacturer": "Tono",
-      "version": 32,
+      "version": 33,
       "variables":{
          "PoweredOn":0,
          "IPV6": "",
@@ -113,6 +113,7 @@
          "CacheEmpty":1,
          "CURSOR":"",
          "KEYBOARDSEARCH":"",
+         "Speed":1,         
          "ArtistSearch":"",
          "AlbumSearch":"",
          "ArtistFilter":"",
@@ -702,10 +703,27 @@
             "type":"webSocket",
             "command":"{\"connection\": \"ws://$MyKODIIp:$RPCPort\", \"message\":{\"jsonrpc\":\"2.0\",\"method\":\"Input.ExecuteAction\",\"params\":{ \"action\": \"subtitledelayplus\"},\"id\":\"\"}}"
             },          
-            "SUBTITLE":
+         "SUBTITLE":
             {"label":"",                                 
                "type":"webSocket",
             "command":"{\"connection\": \"ws://$MyKODIIp:$RPCPort\", \"message\":{\"jsonrpc\":\"2.0\",\"method\":\"GUI.ActivateWindow\",\"id\":\"\",\"params\":{\"window\": \"subtitlesearch\"}}}"
+         },            
+         "__SetSpeed":
+            {"label":"",
+            "type":"webSocket",
+            "command":"{\"connection\": \"ws://$MyKODIIp:$RPCPort\", \"message\":{\"jsonrpc\":\"2.0\",\"method\":\"Player.SetSpeed\",\"id\":\"\",\"params\":{\"playerid\":$PlayerID,\"speed\": $Speed}}}"
+         },  
+         "FAST FORWARD":
+            {"label":"",
+            "command":"{}","type":"static",
+            "evalwrite":[{"variable":"Speed","value":"DYNAMIK $Speed == 0 ? 1: $Speed > 0 ? $Speed == 32  ? 32 : $Speed*2 : $Speed == -1 ? 0: $Speed/2"}], 
+            "evaldo":[{"test":true,"then":"__SetSpeed"}]
+         },  
+         "REVERSE":
+            {"label":"",
+            "command":"{}","type":"static",
+            "evalwrite":[{"variable":"Speed","value":"DYNAMIK $Speed == 0 ? -1: $Speed < 0 ? $Speed == -32  ? -32 : $Speed*2 : $Speed == 1 ? 0: $Speed/2"}], 
+            "evaldo":[{"test":true,"then":"__SetSpeed"}]
          },          
          "PAUSE":
             {"label":"",
