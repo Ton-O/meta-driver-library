@@ -1,7 +1,7 @@
 {"name":"metaCore",
   "manufacturer":"Ton-O; original design by Jac459",
   "type":"AVRECEIVER",
-  "version":9,
+  "version":10,
   "deviceCapabilities": [
     "alwaysOn"
   ],    
@@ -31,6 +31,10 @@
      "DriverOrigin":"",
      "LOGLEVEL":"",
      "MODULE":"",
+     "TVShowTitle":"",
+     "TVShowid":"",
+     "TVShowBanner":"",
+
      "ORIGIN":""
   },
  
@@ -38,7 +42,7 @@
      "CHANNEL UP": {"type":"static", "command":"","queryresult": "", "evaldo":[{"test":true,"then":"__SETUP"}]},
      "CHANNEL DOWN": {"type":"static", "command":"","queryresult": "", "evaldo":[{"test":true,"then":"__SETUP"}]},
      "POWER ON": {"type":"cli", "command":"DYNAMIK \"rm /opt/meta/drivers.manifest\"","queryresult": "", "evaldo":[{"test":true,"then":"__SETUP"}]},
-     "TEST0": {"type":"neeoapi", "command":"{\"verb\":\"isThisFavorite\"}","queryresult": "$", "evalwrite":[{"variable":"MyStatus", "value":"DYNAMIK JSON.parse(\"$Result\").name"}]       },
+     "PM2_Flush": {"type":"cli", "command":"truncate -s 0 /tmp/*.log ","queryresult": "", "evalwrite":[{"variable":"MyStatus", "value":"\"$Result\""}]       },
      "__SETUP": {"type":"cli", "command":"DYNAMIK let Manif = \"$Manifest\".split(\"/\")[\"$Manifest\".split(\"/\").length-1];  \"wget --content-disposition $Manifest;  cat \" + Manif","queryresult": "", "evalwrite":[{"variable":"LibraryDrivers", "value":"DYNAMIK \"$Result\".replace(/(\\r\\n|\\n|\\r)/gm, \"\");"}], "evaldo":[{"test":true,"then":"__SETUP2"}]},
      "__SETUP2": {"type":"static", "command":"$LibraryDrivers","queryresult": "$.drivers", "evalwrite":[{"variable":"LibraryDrivers", "value":"$Result"}], "evaldo":[{"test":true,"then":"__ENRICHLIBRARY0"}]},
      "__ENRICHLIBRARY0": {"type":"cli", "command":"ls -1 $ActivatedLib\/*.json | xargs -n 1 basename| sed -e \"s/\\.json$\/\/\"","queryresult": ["/(.*)./gm"], "evalwrite":[{"variable":"ActiveDrivers","value":"DYNAMIK let src = JSON.parse(\"$Result\"); let dest = []; src.forEach((item)=>{if (!item.endsWith(\"-DataStore\")) {dest.push(item);}}); JSON.stringify(dest);"}, {"variable":"LibraryDataStore","value":"DYNAMIK let src = JSON.parse(\"$Result\"); let dest = []; src.forEach((item)=>{if (item.endsWith(\"-DataStore\")) {dest.push(item);}}); JSON.stringify(dest);"}], "evaldo":[{"test":true,"then":"__ENRICHLIBRARY1"}]},
@@ -49,7 +53,23 @@
      "POWER OFF": {"type":"static", "command":""}
   },
   "directories":{
-     "Settings": {"label":"Settings", 
+         "Show log-errors":            
+            {"label":"Errorlines",
+            "feeders":{
+               "Errors occurred":{"label":"Errorlines list",
+                  "commandset":[
+                  {
+                     "type":"cli","command":"grep -i '******** Severe error ' /tmp/meta-out.log",
+                     "queryresult":"",
+                     "itembrowse":"$Result",
+                     "itemname":"$Result"
+                  }  
+                  ]
+        }
+      }
+    },
+  
+    "Settings": {"label":"Settings", 
          "feeders": {
            "Settings":{"label":"Settings", 
              "commandset": [{"type":"static", "command":"{}", "itemtype":"tile", "itemaction":"","itemimage":"https://raw.githubusercontent.com/jac459/meta-core/main/pics/meta.jpg"},
@@ -155,5 +175,5 @@
            "PowerStatus":{"label":"Power status", "commandset": [{"type":"http-get", "command":"http://$NeeoBrainIP:3000/v1/api/PowerState", "queryresult":"$.*",    "itemname":"DYNAMIK JSON.parse(\"$Result\").name", "itemlabel":"DYNAMIK JSON.parse(\"$Result\").hypotheticalPowerState","itemaction":"__POWEROFF","itemUI" : "goBack","evalwrite":[{"variable":"POWEROFF","value":"DYNAMIK JSON.parse(\"$Result\").poweroff"}],"itemimage":"DYNAMIK (JSON.parse(\"$Result\").hypotheticalPowerState == \"on\")?\"https://raw.githubusercontent.com/Ton-o/meta-kodi/master/Icons/checkmark.jpg\":\"\""}]}
          }
        }
-  }
+  }  
 }
