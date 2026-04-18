@@ -673,7 +673,7 @@
          },
          "__PLAY":
             {"label":"",                                 
-            "type":"webSocket",
+            "type":"webSocket","evalwrite":[{"variable":"Speed","value":1}],
             "command":"{\"connection\": \"ws://$MyKODIIp:$RPCPort\", \"message\":{\"jsonrpc\":\"2.0\",\"method\":\"Player.PlayPause\",\"id\":\"\",\"params\":{\"playerid\":$PlayerID}}}"
          },    
          "SHUFFLE":
