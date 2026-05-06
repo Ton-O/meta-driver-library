@@ -6,7 +6,7 @@
    "discover":{
      "welcomeheadertext":"Choose your KODI Instance",
      "welcomedescription":"By Ton-o; powered by meta\n ",
-      "command": {"type":"avahi", "command":"xbmc-jsonrpc+\\._tcp", 
+      "command": {"type":"avahi", "command":"_xbmc-events._udp", 
          "queryresult":["$.*"]
       }
    },
@@ -145,7 +145,7 @@
          "WatchFilterSmall":"", 
          "ShowWatched":""
    },
-   "dynamicname": "DYNAMIK_INST_START DYNAMIK  \"KODI_\" + JSON.parse(\"$Result\").hostname  DYNAMIK_INST_END",
+   "dynamicname": "DYNAMIK_INST_START DYNAMIK  \"KODI_\" + JSON.parse(\"$Result\").name  DYNAMIK_INST_END",
    "dynamicid": "DYNAMIK_INST_START DYNAMIK \"KODI_\" + JSON.parse(\"$Result\").hostname DYNAMIK_INST_END",
    "webSocket":{},
    "listeners" : {
