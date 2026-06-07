@@ -16,6 +16,7 @@
      "LibraryDataStore":"",
      "ActiveDrivers":"",
      "CurrentDriver":"",
+     "CurrentError":"", 
      "RoomKey":"",
      "DeviceKey":"",
      "ActivatedName":"",
@@ -53,8 +54,7 @@
      "POWER OFF": {"type":"static", "command":""}
   },
   "directories":{
-         "Show log-errors":            
-            {"label":"Errorlines",
+         "Show log-errors":{"label":"Errorlines",
             "feeders":{
                "Errors occurred":{"label":"Errorlines list",
                   "commandset":[
@@ -62,13 +62,24 @@
                      "type":"cli","command":"grep -i '******** Severe error ' /tmp/meta-out.log",
                      "queryresult":"",
                      "itembrowse":"$Result",
-                     "itemname":"$Result"
+                     "itemname":"$Result",
+                    "evalnext":[{"test":true, "then":"OneError", "or":""}],
+                    "evalwrite":[{"variable":"CurrentError","value":"$Result"}]                       
                   }  
                   ]
-        }
-      }
-    },
-  
+              },            
+              "OneError":
+                  {"commandset":[
+                    {"type":"static","command":"aaa",
+                      "itemlabel":"$CurrentError",
+                      "itemname":"$CurrentError",
+                      "itemtype":"info"
+                    }  
+                    ]
+                  }
+            }
+          },
+    
     "Settings": {"label":"Settings", 
          "feeders": {
            "Settings":{"label":"Settings", 
