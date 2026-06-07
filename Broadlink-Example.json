@@ -1,14 +1,16 @@
 {
-   "name":"32PFL5206H/12",
-   "manufacturer":"Philips",
+   "name":"Broadlink-example",
+   "Description":"This driver is just an example of how to use a broadlink (based on driver 32PFL5206H)",
+   "Description2":"The skeleton is okay, you can adjust/add buttons as you wish (choose buttons appropriate to your specific device)",
+   "manufacturer":"Broadlink",
    "type":"TV",
-   "version": 2,
+   "version": 1,
    "variables":{
    "Broadlinks":"",
    "Broadlinks2":""
    },
    "discover":{
-      "welcomeheadertext":"Broadlink driver",
+      "welcomeheadertext":"Broadlink-example",
       "welcomedescription":"By Tono",
       
       "command":
@@ -19,13 +21,13 @@
    "template":{
       "dynamicname":"DYNAMIK_INST_START DYNAMIK \"32PFL5206H/12 via \" + JSON.parse(\"$Result\").name  DYNAMIK_INST_END",
       "dynamicid":  "DYNAMIK_INST_START DYNAMIK JSON.parse(\"$Result\").name  DYNAMIK_INST_END",
-      "name":"32PFL5206H/12",
-      "manufacturer":"Philips",
+      "name":"Broadlink-example",
+      "manufacturer":"Broadlink",
       "type":"TV",
       "deviceCapabilities": [
          "channelSave"
          ],
-      "version": 2,
+      "version": 1,
       "variables":{
          "MyStatus":"", 
          "BroadlinkIP":"DYNAMIK_INST_START DYNAMIK JSON.parse(\"$Result\").host.address DYNAMIK_INST_END" 
