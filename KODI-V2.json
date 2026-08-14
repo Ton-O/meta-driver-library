@@ -1,12 +1,12 @@
 { "name":"KODI-V2",
    "manufacturer":"Tono",
    "type":"MEDIAPLAYER",
-   "version":3,
+   "version":4,
    "variables": {"MYRESULT":""}, 
    "discover":{
      "welcomeheadertext":"Choose your KODI Instance",
      "welcomedescription":"By Ton-o; powered by meta\n ",
-      "command": {"type":"avahi", "command":"_xbmc-events._udp", 
+      "command": {"type":"avahi", "command":"_xbmc-jsonrpc-h._tcp", 
          "queryresult":["$.*"]
       }
    },
@@ -14,7 +14,7 @@
       "name": "KODI-V2",
       "type":"MEDIAPLAYER",
       "manufacturer": "Tono",
-      "version": 3,
+      "version": 4,
       "variables":{
          "PoweredOn":0,
          "IPV6": "",
@@ -25,7 +25,7 @@
          "MyKODIIp":"DYNAMIK_INST_START DYNAMIK    JSON.parse(\"$Result\").address DYNAMIK_INST_END",
          "xMyKODIPort":"DYNAMIK_INST_START DYNAMIK JSON.parse(\"$Result\").port DYNAMIK_INST_END",
          "MyKODIPort":8080,
-         "MyKODIMAC": "DYNAMIK_INST_START DYNAMIK JSON.parse(\"$Result\").address DYNAMIK_INST_END",
+         "MyKODIMAC": "DYNAMIK_INST_START DYNAMIK JSON.parse(\"$Result\").mac DYNAMIK_INST_END",
          "KODIREQ":"",
          "RPCPort":"9090",
          "POWER":"",
@@ -145,8 +145,8 @@
          "WatchFilterSmall":"", 
          "ShowWatched":""
    },
-   "dynamicname": "DYNAMIK_INST_START DYNAMIK  \"KODI_\" + JSON.parse(\"$Result\").name  DYNAMIK_INST_END",
-   "dynamicid": "DYNAMIK_INST_START DYNAMIK \"KODI_\" + JSON.parse(\"$Result\").hostname DYNAMIK_INST_END",
+   "dynamicname": "DYNAMIK_INST_START DYNAMIK \"KODI_\" + JSON.parse(\"$Result\").hostname + \" (\" + JSON.parse(\"$Result\").address + \")\" DYNAMIK_INST_END",
+   "dynamicid": "DYNAMIK_INST_START DYNAMIK \"KODI_\" + JSON.parse(\"$Result\").mac DYNAMIK_INST_END",
    "webSocket":{},
    "listeners" : {
 
