@@ -93,7 +93,7 @@
          "FUNCTION YELLOW":{"label":"","type":"broadlink", "command":{"function":"xmitGC","connection":"$BroadlinkIP", "type":"ir",
             "message":"sendir,1:1,1,36000,1,1,64,32,32,32,32,32,32,32,32,32,32,32,32,64,64,64,32,32,64,64,32,2487"}},
          "INPUT HDMI 1":{"label":"","type":"broadlink", "command":{"function":"xmitGC","connection":"$BroadlinkIP", "type":"ir",
-            "message":"sendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,64,32,32,64,32,32,32,32,64,64,32,32,2487"}},
+         "message":"sendir,1:1,1,38000,1,1,106,36,16,36,17,17,19,17,17,36,35,17,16,19,17,19,16,19,17,19,16,19,17,19,16,17,19,17,17,17,35,19,17,19,16,36,16,19,17,19,16,3327"}},
          "INPUT HDMI 2":{"label":"","type":"broadlink", "command":{"function":"xmitGC","connection":"$BroadlinkIP", "type":"ir",
             "message":"sendir,1:1,1,36000,1,1,32,32,64,32,32,32,32,32,32,32,32,32,32,64,32,32,32,32,64,32,32,64,32,2487"}},
          "INPUT HDMI 3":{"label":"","type":"broadlink", "command":{"function":"xmitGC","connection":"$BroadlinkIP", "type":"ir",
