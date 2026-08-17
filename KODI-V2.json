@@ -1,12 +1,12 @@
 { "name":"KODI-V2",
    "manufacturer":"Tono",
    "type":"MEDIAPLAYER",
-   "version":4,
+   "version":5,
    "variables": {"MYRESULT":""}, 
    "discover":{
      "welcomeheadertext":"Choose your KODI Instance",
      "welcomedescription":"By Ton-o; powered by meta\n ",
-      "command": {"type":"avahi", "command":"_xbmc-jsonrpc-h._tcp", 
+      "command": {"type":"avahi", "command":"_xbmc-jsonrpc", 
          "queryresult":["$.*"]
       }
    },
@@ -14,7 +14,7 @@
       "name": "KODI-V2",
       "type":"MEDIAPLAYER",
       "manufacturer": "Tono",
-      "version": 4,
+      "version": 5,
       "variables":{
          "PoweredOn":0,
          "IPV6": "",
