@@ -12,7 +12,7 @@
       "welcomedescription":"By Tono",
       
       "command":
-         { "label":"","type":"broadlink", "command":{"function":"init","connection":"$BroadlinkIP"}
+         { "label":"","type":"broadlink", "command":{"function":"discover","connection":""}
          },
       "queryresult":["$.*"]
       },

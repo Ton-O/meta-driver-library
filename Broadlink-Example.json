@@ -4,7 +4,7 @@
    "Description2":"The skeleton is okay, you can adjust/add buttons as you wish (choose buttons appropriate to your specific device)",
    "manufacturer":"Broadlink",
    "type":"TV",
-   "version": 1,
+   "version": 2,
    "variables":{
    "Broadlinks":"",
    "Broadlinks2":""
@@ -14,7 +14,7 @@
       "welcomedescription":"By Tono",
       
       "command":
-         { "label":"","type":"broadlink", "command":{"function":"init","connection":"$BroadlinkIP"}
+         { "label":"","type":"broadlink", "command":{"function":"discover","connection":""}
          },
       "queryresult":["$.*"]
       },
@@ -27,7 +27,7 @@
       "deviceCapabilities": [
          "channelSave"
          ],
-      "version": 1,
+      "version": 2,
       "variables":{
          "MyStatus":"", 
          "BroadlinkIP":"DYNAMIK_INST_START DYNAMIK JSON.parse(\"$Result\").host.address DYNAMIK_INST_END" 
