@@ -156,20 +156,20 @@
            "LOGLEVEL":{"label":"Set LogLevel", 
              "commandset": [
                  {"type":"static", "command":"{\"\":true}", "queryresult":"$.", "itemname":"REMOVE", "itemlabel":"REMOVE Loglevel $MODULE", "itemimage":"https://raw.githubusercontent.com/Ton-O/meta-driver-library/refs/heads/main/pics/global.png",
-                 "itemaction":"__LOGLEVEL","itemUI" : "goBack","evalwrite":[{"variable":"LOGLEVEL","value":""}]},
+                  "itemaction": "__LOGLEVEL", "itemUI" : "goBack","evalwrite":[{"variable":"LOGLEVEL","value":""}]},
                  {"type":"static", "command":"{\"\":true}", "queryresult":"$.", "itemname":"QUIET", "itemlabel":"Loglevel QUIET for $MODULE", "itemimage":"https://raw.githubusercontent.com/Ton-O/meta-driver-library/refs/heads/main/pics/silence.png",
-                 "itemaction":"__LOGLEVEL","itemUI" : "goBack","evalwrite":[{"variable":"LOGLEVEL","value":"QUIET"}]},
-                 {"type":"static", "command":"{\"\":true}", "queryresult":"$.", "itemname":"WARNING", "itemlabel":"Loglevel Warning for $MODULE", "itemimage":"https://raw.githubusercontent.com/Ton-O/meta-driver-library/refs/heads/main/pics/warning.png",
-                 "itemaction":"__LOGLEVEL","itemUI" : "goBack","evalwrite":[{"variable":"LOGLEVEL","value":"WARNING"}]},
+                 "itemaction": "__LOGLEVEL", "itemUI" : "goBack","evalwrite":[{"variable":"LOGLEVEL","value":"QUIET"}]},                 
+                {"type":"static", "command":"{\"\":true}", "queryresult":"$.", "itemname":"WARNING", "itemlabel":"Loglevel Warning for $MODULE", "itemimage":"https://raw.githubusercontent.com/Ton-O/meta-driver-library/refs/heads/main/pics/warning.png",
+                 "itemaction": "__LOGLEVEL", "itemUI" : "goBack","evalwrite":[{"variable":"LOGLEVEL","value":"WARNING"}]},
                  {"type":"static", "command":"{\"\":true}", "queryresult":"$.", "itemname":"INFO", "itemlabel":"Loglevel INFO for $MODULE", "itemimage":"https://raw.githubusercontent.com/Ton-O/meta-driver-library/refs/heads/main/pics/info.png",
-                 "itemaction":"__LOGLEVEL","itemUI" : "goBack","evalwrite":[{"variable":"LOGLEVEL","value":"INFO"}]},
+                 "itemaction": "__LOGLEVEL", "itemUI" : "goBack","evalwrite":[{"variable":"LOGLEVEL","value":"INFO"}]},
                  {"type":"static", "command":"{\"\":true}", "queryresult":"$.", "itemname":"VERBOSE", "itemlabel":"Loglevel VERBOSE for $MODULE", "itemimage":"https://raw.githubusercontent.com/Ton-O/meta-driver-library/refs/heads/main/pics/verbose.png",
-                 "itemaction":"__LOGLEVEL","itemUI" : "goBack","evalwrite":[{"variable":"LOGLEVEL","value":"VERBOSE"}]},
+                 "itemaction": "__LOGLEVEL", "itemUI" : "goBack","evalwrite":[{"variable":"LOGLEVEL","value":"VERBOSE"}]},
                  {"type":"static", "command":"{\"\":true}", "queryresult":"$.", "itemname":"DEBUG", "itemlabel":"Loglevel DEBUG for $MODULE", "itemimage":"https://raw.githubusercontent.com/Ton-O/meta-driver-library/refs/heads/main/pics/debug.png",
-                 "itemaction":"__LOGLEVEL","itemUI" : "goBack","evalwrite":[{"variable":"LOGLEVEL","value":"DEBUG"}]}
-               ]
+                 "itemaction": "__LOGLEVEL", "itemUI" : "goBack","evalwrite":[{"variable":"LOGLEVEL","value":"DEBUG"}]}
+                ]
            },
-           "__LOGLEVEL":{"label":"", "commandset": [{"type":"loglevel", "command":"$LOGLEVEL,$MODULE,$ORIGIN","itemUI" : "goBack"}]},
+           "__LOGLEVEL":{"label":"", "commandset": [{"type":"loglevel", "command":"$LOGLEVEL,$MODULE,$ORIGIN","itemUI" : "goToRoot"}]},
            "__POWEROFF":{"label":"", "commandset": [{"type":"http-get", "command":"http://$NeeoBrainIP:3000$POWEROFF","itemUI" : "goBack"}]},
 
            
@@ -185,7 +185,7 @@
            "Devices":{"label":"Devices list", "commandset": [{"type":"http-get", "command":"http://$NeeoBrainIP:3000/v1/projects/home/rooms/$RoomKey/devices", "queryresult":"$.*", "itemname":"DYNAMIK JSON.parse(\"$Result\").name", "itemlabel":"Recipe name", "itemimage":"https://raw.githubusercontent.com/jac459/metadriver/master/AVReceiver/devices.jpg", "evalnext":[{"test":true, "then":"Macros", "or":"Devices"}], "evalwrite":[{"variable":"DeviceKey","value":"DYNAMIK JSON.parse(\"$Result\").key"}]}]},
            "Macros":{"label":"Macros list", "commandset": [{"type":"http-get", "command":"http://$NeeoBrainIP:3000/v1/projects/home/rooms/$RoomKey/devices/$DeviceKey/macros", "queryresult":"$.*", "itemname":"DYNAMIK JSON.parse(\"$Result\").name", "itemlabel":"Recipe name", "itemaction":"ACTION_ActivateMacro", "itemimage":"https://raw.githubusercontent.com/jac459/metadriver/master/AVReceiver/Neeo_logo.jpg", "evalwrite":[{"variable":"TriggerKey","value":"DYNAMIK JSON.parse(\"$Result\").key"}]}]},
            "ACTION_ActivateMacro":{"label":"", "commandset": [{"type":"http-get", "command":"http://$NeeoBrainIP:3000/v1/projects/home/rooms/$RoomKey/devices/$DeviceKey/macros/$TriggerKey/trigger", "queryresult":"$.*", "itemname":"", "itemlabel":"Recipe name", "itemaction":""}]},
-           "PowerStatus":{"label":"Power status", "commandset": [{"type":"http-get", "command":"http://$NeeoBrainIP:3000/v1/api/PowerState", "queryresult":"$.*",    "itemname":"DYNAMIK JSON.parse(\"$Result\").name", "itemlabel":"DYNAMIK JSON.parse(\"$Result\").hypotheticalPowerState","itemaction":"__POWEROFF","itemUI" : "goBack","evalwrite":[{"variable":"POWEROFF","value":"DYNAMIK JSON.parse(\"$Result\").poweroff"}],"itemimage":"DYNAMIK (JSON.parse(\"$Result\").hypotheticalPowerState == \"on\")?\"https://raw.githubusercontent.com/Ton-o/meta-kodi/master/Icons/checkmark.jpg\":\"\""}]},
+           "PowerStatus":{"label":"Power status", "commandset": [{"type":"http-get", "command":"http://$NeeoBrainIP:3000/v1/api/PowerState", "queryresult":"$.*",    "itemname":"DYNAMIK JSON.parse(\"$Result\").name", "itemlabel":"DYNAMIK JSON.parse(\"$Result\").hypotheticalPowerState","itemaction":"__POWEROFF","itemUI" : "reload","evalwrite":[{"variable":"POWEROFF","value":"DYNAMIK JSON.parse(\"$Result\").poweroff"}],"itemimage":"DYNAMIK (JSON.parse(\"$Result\").hypotheticalPowerState == \"on\")?\"https://raw.githubusercontent.com/Ton-o/meta-kodi/master/Icons/checkmark.jpg\":\"\""}]},
            "KodiJsonRPC":{"label":"Discover jsonrpc","commandset": [{"type":"avahi", "command":"_xbmc-jsonrpc", "queryresult":["$.*"],"itemname":"DYNAMIK JSON.parse(\"$Result\").hostname " , "itemlabel":"DYNAMIK JSON.parse(\"$Result\").address","itemUI" : "goBack"}]},
            "KodiEvents":{"label":"Discover xbmc-events","commandset": [{"type":"avahi", "command":"_xbmc-events.", 
            "queryresult":["$.*"],    "itemname":"DYNAMIK JSON.parse(\"$Result\").hostname " , "itemlabel":"DYNAMIK JSON.parse(\"$Result\").address","itemUI" : "goBack"}]}
