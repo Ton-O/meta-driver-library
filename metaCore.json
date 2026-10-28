@@ -59,7 +59,7 @@
                "Errors occurred":{"label":"Errorlines list",
                   "commandset":[
                   {
-                     "type":"cli","grep -i '******** Severe error ' /tmp/meta-out.log |grep -v 'grep -i' || true",
+                     "type":"cli","command":"grep -i '******** Severe error ' /tmp/meta-out.log|grep -v 'grep -i'",
                      "queryresult":"",
                      "itembrowse":"$Result",
                      "itemname":"$Result",

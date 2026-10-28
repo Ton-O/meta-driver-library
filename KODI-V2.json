@@ -1,7 +1,7 @@
 { "name":"KODI-V2",
    "manufacturer":"Tono",
    "type":"MEDIAPLAYER",
-   "version":5,
+   "version":6,
    "variables": {"MYRESULT":""}, 
    "discover":{
      "welcomeheadertext":"Choose your KODI Instance",
@@ -14,7 +14,7 @@
       "name": "KODI-V2",
       "type":"MEDIAPLAYER",
       "manufacturer": "Tono",
-      "version": 5,
+      "version": 6,
       "variables":{
          "PoweredOn":0,
          "IPV6": "",
@@ -198,6 +198,7 @@
          "PlayerID": {"label": "PlayerID","listen": "PlayerID"}, 
          "PlayInfo": {"label": "","listen": "PlayInfo"},
          "MyStatus": {"label": "","listen": "MyStatus"},
+         "MyMac":    {"label": "","listen":"MyKODIMAC"},
          "Current_title": {"label": "","listen": "Current_title"},
          "Player_FinishTime": {"label": "Playing FinishTime","listen": "Player_FinishTime"},
          "Player_OriginalTitle": {"label": "Playing OriginalTitle","listen": "Player_OriginalTitle"},
@@ -255,6 +256,7 @@
             "evalwrite":[
                {"variable":"MyStatus","value":"Connecting to KODI-device..."},
                {"variable":"PoweredOn","value":1},
+               {"variable":"MyKODIMAC","value":"$MyKODIMAC"},
                {"variable":"websocketMsgs","value":0} 
             ],
             "evaldo":[{"test":true,"then":"__INITIALISE", "or":""},
