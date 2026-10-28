@@ -116,8 +116,6 @@
            "UpdateAction":{"label":"", "commandset": [{"type":"cli", "command":"DYNAMIK let cd = JSON.parse(\"$Result\");\"wget \" + cd.driverLocation + \" -O $CoreLibrary/\" + cd.filename + \".json\""}]},
            "DatastoreAction":{"label":"", "commandset": [{"type":"cli", "command":"DYNAMIK let cd = JSON.parse(\"$Result\");\"rm $ActivatedLib/\" + cd.filename + \"-DataStore.json\"", "evalwrite":[{"variable":"LibraryDrivers","value":"DYNAMIK let ld = $LibraryDrivers; ld.find((driv) => {return driv.filename == \"$CurrentDriver\"}).datastore = false; JSON.stringify(ld);"}]}]},
  
-           "ActivateActionExternal":{"label":"", "commandset": [{"type":"cli", "command":"DYNAMIK \"curl \" + \"$DriverLocation \" + \" -o \" + \" $ActivatedLib\" + \"/\" + \"$DriverName\"+ \".json\""}]},
- 
            "Manage":{"label":"Manage the Meta", 
              "commandset": [
                {"type":"static", "command":"", "itemtype":"tile", "itemimage":"https://raw.githubusercontent.com/jac459/meta-core/main/pics/settings.jpg"},
