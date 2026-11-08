@@ -1,7 +1,7 @@
 {"name":"metaCore",
   "manufacturer":"Ton-O; original design by Jac459",
   "type":"AVRECEIVER",
-  "version":12,
+  "version":13,
   "deviceCapabilities": [
     "alwaysOn"
   ],    
@@ -11,7 +11,7 @@
   },
   "variables":{
      "MyStatus":"",
-     "Manifest": "https://raw.githubusercontent.com/Ton-O/NEEO-Meta-Plus/master/drivers.manifest",
+     "Manifest": "https://raw.githubusercontent.com/Ton-O/meta-driver-library/master/drivers.manifest",
      "LibraryDrivers":"",
      "LibraryDataStore":"",
      "ActiveDrivers":"",
@@ -22,6 +22,7 @@
      "ActivatedName":"",
      "ActivatedLib":"./active",
      "LibraryName":"",
+     "LibraryVersion":"",
      "UserLibrary":"./library",
      "CoreLibrary":"./library",
      "TriggerKey":"",
@@ -105,13 +106,15 @@
            {"label":"", 
              "commandset": [
                {"type":"static", "command":"DYNAMIK let ld = $LibraryDrivers; ld.find((driv) => {return driv.filename == \"$CurrentDriver\"});", "itemtype":"tile", "itemimage":"DYNAMIK JSON.parse(\"$Result\").iconLocation;"},
-               {"type":"static", "command":"DYNAMIK let ld = $LibraryDrivers; ld.find((driv) => {return driv.filename == \"$CurrentDriver\"});", "itemtype":"button", "itemUI":true, "itemname":"DYNAMIK JSON.parse(\"$Result\").name"},
                {"type":"static", "command":"DYNAMIK let ld = $LibraryDrivers; ld.find((driv) => {return driv.filename == \"$CurrentDriver\"});", "itemtype":"button", "itemUI":true, "itemname":"DYNAMIK JSON.parse(\"$Result\").description"},
                {"type":"static", "command":"DYNAMIK let ld = $LibraryDrivers; ld.find((driv) => {return driv.filename == \"$CurrentDriver\"});", "itemimage":"DYNAMIK let cd = JSON.parse(\"$Result\"); cd.active?\"https://raw.githubusercontent.com/jac459/meta-core/main/pics/selected.jpg\":\"https://raw.githubusercontent.com/jac459/meta-core/main/pics/unselected.jpg\"", "itemUI":"reload", "itemname":"DYNAMIK let cd = JSON.parse(\"$Result\"); cd.active?\"Deactivate Driver\":\"Activate Driver\"", "itemaction":"ActivateAction"},
                {"type":"static", "command":"DYNAMIK let ld = $LibraryDrivers; ld.find((driv) => {return driv.filename == \"$CurrentDriver\"});", "itemimage":"https://raw.githubusercontent.com/jac459/meta-core/main/pics/update.jpg", "itemaction":"UpdateAction", "itemUI":"reload", "itemlabel":"DYNAMIK JSON.parse(\"$Result\").updated?\"Driver Updated in Library\":\"Driver not yet updated\"", "itemname":"Download the latest version of your driver", "evalwrite":[{"variable":"LibraryDrivers","value":"DYNAMIK let ld = $LibraryDrivers; ld.find((driv) => {return driv.filename == \"$CurrentDriver\"}).updated = true; JSON.stringify(ld);"}]},
+               {"type":"static", "command":"DYNAMIK let ld = $LibraryDrivers; ld.find((driv) => {return driv.filename == \"$CurrentDriver\"});", "itemimage":"https://raw.githubusercontent.com/jac459/meta-core/main/pics/warning.jpg", "xitemUI" : "reload", 
+                 "itemlabel":"getVersion of $CurrentDriver", "itemname":"getVersion","evalnext":[{"test":true, "then":"GetVersion"}], "evalwrite":[{"variable":"LibraryVersion","value":"DYNAMIK JSON.parse(\"$Result\").version"}]},
                {"type":"static", "command":"DYNAMIK let ld = $LibraryDrivers; ld.find((driv) => {return driv.filename == \"$CurrentDriver\"});", "itemimage":"https://raw.githubusercontent.com/jac459/meta-core/main/pics/warning.jpg", "itemUI" : "reload", "itemaction":"DatastoreAction", "itemlabel":"Factory default for drivers ;-)", "itemname":"DYNAMIK let cd = JSON.parse(\"$Result\"); cd.datastore?\"Delete DataStore\":\"No DataStore to delete\""}
              ]
            },
+           "GetVersion":{"label":"", "commandset": [{"type":"cli", "command":"grep -i 'version' '/opt/meta/active/$CurrentDriver.json'","queryresult": "/(?<=\\x22version\\x22\\s*:\\s*)\\d+/","itemname":"Current version $Result","itemlabel":"Latest version: $LibraryVersion"}]},
            "ActivateAction":{"label":"", "commandset": [{"type":"cli", "command":"DYNAMIK let cd = JSON.parse(\"$Result\");if (cd.active) {\"rm $ActivatedLib/\" + cd.filename + \".json*\"} else {\"cp $CoreLibrary/\" + cd.filename + \".json $ActivatedLib/\"}", "evalwrite":[{"variable":"LibraryDrivers","value":"DYNAMIK let ld = $LibraryDrivers; let cd = ld.find((driv) => {return driv.filename == \"$CurrentDriver\"});cd.active = !cd.active; JSON.stringify(ld);"}]}]},
            "UpdateAction":{"label":"", "commandset": [{"type":"cli", "command":"DYNAMIK let cd = JSON.parse(\"$Result\");\"wget \" + cd.driverLocation + \" -O $CoreLibrary/\" + cd.filename + \".json\""}]},
            "DatastoreAction":{"label":"", "commandset": [{"type":"cli", "command":"DYNAMIK let cd = JSON.parse(\"$Result\");\"rm $ActivatedLib/\" + cd.filename + \"-DataStore.json\"", "evalwrite":[{"variable":"LibraryDrivers","value":"DYNAMIK let ld = $LibraryDrivers; ld.find((driv) => {return driv.filename == \"$CurrentDriver\"}).datastore = false; JSON.stringify(ld);"}]}]},
