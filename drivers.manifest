@@ -1,0 +1,77 @@
+{
+  "drivers": [
+ 
+    {
+      "name": "Chromecast",
+      "author": "TonO",
+      "description": "Control your Chromecast",
+      "version": 5,
+      "driverLocation": "https://raw.githubusercontent.com/Ton-O/meta-driver-library/main/Chromecast.json",
+      "iconLocation":   "https://raw.githubusercontent.com/Ton-O/meta-driver-library/main/pics/Chromecast.png"
+    },     
+    {
+      "name": "Kodi-V2",
+      "author": "TonO",
+      "description": "KODI with advanced discovery function",
+      "version": 6,
+      "driverLocation": "https://raw.githubusercontent.com/Ton-O/meta-driver-library/main/KODI-V2.json",
+      "iconLocation":   "https://raw.githubusercontent.com/Ton-O/meta-driver-library/main/pics/kodi-logo.jpg"
+    },
+ {
+      "name": "Kodi",
+      "author": "TonO",
+      "description": "Full Kodi control",
+      "version": 33,
+      "driverLocation": "https://raw.githubusercontent.com/Ton-O/meta-driver-library/main/KODI.json",
+      "iconLocation":   "https://raw.githubusercontent.com/Ton-O/meta-driver-library/main/pics/kodi-logo.jpg"
+    },    
+    {
+      "name": "Android Remote",
+      "author": "TonO",
+      "description": "Control android Remote",
+      "version": 1,
+      "driverLocation": "https://raw.githubusercontent.com/Ton-O/meta-driver-library/main/AndroidTVRemote.json",
+      "iconLocation":   "https://raw.githubusercontent.com/Ton-O/meta-driver-library/main/pics/AndroidTVRemote.png"
+    },     
+    {
+      "name": "Tasmota",
+      "author": "TonO",
+      "description": "Control your Tasmota devices",
+      "version": 5,
+      "driverLocation": "https://raw.githubusercontent.com/Ton-O/meta-driver-library/main/Tasmota.json",
+      "iconLocation":   "https://raw.githubusercontent.com/Ton-O/meta-driver-library/main/pics/Tasmota.png"
+    },     
+    {
+      "name": "Tasmota-oldproto",
+      "author": "TonO",
+      "description": "Control your Tasmota devices with the old-style Set",
+      "version": 1,
+      "driverLocation": "https://raw.githubusercontent.com/Ton-O/meta-driver-library/main/Tasmota-oldproto.json",
+      "iconLocation":   "https://raw.githubusercontent.com/Ton-O/meta-driver-library/main/pics/Tasmota.png"
+    },    
+    {
+      "name": "HA-KPN-TV",
+      "author": "TonO",
+      "description": "Control KPN-TV box via Homeassistant",
+      "version": 6,
+      "driverLocation": "https://raw.githubusercontent.com/Ton-O/meta-driver-library/main/HA-KPN.json",
+      "iconLocation":   "https://raw.githubusercontent.com/Ton-O/meta-driver-library/main/pics/kpntv-logo.png"
+    },
+    {
+      "name": "32PFL5206-broadlink",
+      "author": "TonO",
+      "description": "An example on how to control TV via custom broadlink",
+      "version": 4,
+      "driverLocation": "https://raw.githubusercontent.com/Ton-O/meta-driver-library/main/32PFL5206H.json",
+      "iconLocation":   "https://raw.githubusercontent.com/Ton-O/meta-driver-library/main/pics/BroadlinkTV.jpg"
+    },        
+    {
+      "name": "meta-core",
+      "author": "TonO",
+      "description": "Revised MetaCore from JAC459: Control your meta from the remote.",
+      "version": 12,
+      "driverLocation": "https://raw.githubusercontent.com/Ton-O/meta-driver-library/main/metaCore.json",
+      "iconLocation":   "https://raw.githubusercontent.com/Ton-O/meta-driver-library/main/pics/core.jpg"
+    }
+  ]
+}
